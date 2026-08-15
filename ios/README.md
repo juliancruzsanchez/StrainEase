@@ -1,6 +1,6 @@
-# StrainWise iOS
+# StrainEase iOS
 
-Native SwiftUI companion for the StrainWise web app. Same Firebase project, same accounts.
+Native SwiftUI companion for the StrainEase web app. Same Firebase project, same accounts.
 
 **v1 slice:** email / Google / Apple sign-in, Find (recommend), strain detail.
 
@@ -12,7 +12,7 @@ xcodegen generate
 open StrainWise.xcodeproj
 ```
 
-Xcode 16+ / iOS 17+. Select the **StrainWise** scheme and an iPhone simulator.
+Xcode 16+ / iOS 17+. Select the **StrainWise** scheme (display name **StrainEase**) and an iPhone simulator.
 
 ## Firebase
 

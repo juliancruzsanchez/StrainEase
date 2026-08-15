@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(RecentlyViewedStore.self) private var recents
+    @Environment(SavedAilmentsStore.self) private var savedAilments
     @State private var model: HomeModel
     @State private var path: [BrowseDestination] = []
 
@@ -16,9 +17,10 @@ struct HomeView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 28) {
                         hero
+                        typeRail(.directory)
                         typeRail(.popular)
                         AilmentCarousel(
-                            ailments: model.ailments,
+                            ailments: orderedAilments,
                             preview: { Array(model.strains(for: .ailment($0)).prefix(model.previewLimit)) },
                             onSeeMore: { name in openGrid(.ailment(name), model.strains(for: .ailment(name))) },
                             onSelect: openProfile
@@ -51,7 +53,7 @@ struct HomeView: View {
                             .scaledToFit()
                             .frame(width: 26, height: 26)
                             .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
-                        Text("StrainWise")
+                        Text("StrainEase")
                             .font(.system(.headline, design: .serif))
                             .foregroundStyle(Palette.foreground)
                     }
@@ -69,6 +71,15 @@ struct HomeView: View {
             .task { await model.load() }
         }
         .tint(Palette.primary)
+    }
+
+    private var orderedAilments: [String] {
+        let saved = savedAilments.ailments
+        guard !saved.isEmpty else { return model.ailments }
+        let rest = model.ailments.filter { name in
+            !saved.contains { $0.caseInsensitiveCompare(name) == .orderedSame }
+        }
+        return saved + rest
     }
 
     private var hero: some View {
@@ -107,4 +118,5 @@ struct HomeView: View {
         .environment(\.strainAPI, PreviewStrainAPI())
         .environment(RecentlyViewedStore.preview([.sampleGDP, .sampleBlueDream]))
         .environment(SavedStrainsStore.preview())
+        .environment(SavedAilmentsStore.preview(["Insomnia", "Anxiety"]))
 }

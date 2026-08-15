@@ -21,6 +21,9 @@ final class FindModel {
     var lookupQuery = ""
     var lookupError: String?
     var isLookingUp = false
+    var compareNames: [String] = []
+    var comparison: StrainComparison?
+    var isComparing = false
 
     @ObservationIgnored private let api: any StrainServicing
     @ObservationIgnored private var stepTask: Task<Void, Never>?
@@ -34,6 +37,8 @@ final class FindModel {
     var canLookup: Bool {
         !lookupQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isLookingUp
     }
+
+    var canCompare: Bool { compareNames.count >= 2 && compareNames.count <= 3 && !isComparing }
 
     func toggleAilment(_ name: String) {
         if let index = ailments.firstIndex(where: { $0.caseInsensitiveCompare(name) == .orderedSame }) {
@@ -93,8 +98,37 @@ final class FindModel {
         }
     }
 
+    func addToCompare(_ name: String) {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        if !compareNames.contains(where: { $0.caseInsensitiveCompare(trimmed) == .orderedSame }) {
+            if compareNames.count < 3 { compareNames.append(trimmed) }
+        }
+    }
+
+    func removeFromCompare(_ name: String) {
+        compareNames.removeAll { $0.caseInsensitiveCompare(name) == .orderedSame }
+    }
+
+    func compareSelected() async {
+        guard canCompare else { return }
+        isComparing = true
+        errorMessage = nil
+        defer { isComparing = false }
+        do {
+            comparison = try await api.compare(
+                strainNames: compareNames,
+                conditions: ailments,
+                prefs: prefs
+            )
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
     func reset() {
         result = nil
+        comparison = nil
         errorMessage = nil
         ailments = []
         searched = []
@@ -102,6 +136,7 @@ final class FindModel {
         prefs = ResearchPrefs()
         lookupQuery = ""
         lookupError = nil
+        compareNames = []
     }
 
     private func startSteps() {

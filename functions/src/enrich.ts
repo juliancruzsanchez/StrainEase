@@ -204,7 +204,7 @@ function asStringList(value: unknown): string[] | undefined {
   return out.length > 0 ? out : undefined;
 }
 
-const RESEARCH_SYSTEM = `You are StrainWise. Fill in a cannabis strain profile using only commonly reported public information (Leafly, Weedmaps, Reddit, dispensary menus).
+const RESEARCH_SYSTEM = `You are StrainEase. Fill in a cannabis strain profile using only commonly reported public information (Leafly, Weedmaps, Reddit, dispensary menus).
 
 Rules:
 - Return ONLY a JSON object. No markdown.

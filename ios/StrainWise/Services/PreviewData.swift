@@ -56,6 +56,25 @@ extension StrainProfile {
     )
 }
 
+extension StrainComparison {
+    static let sample = StrainComparison(
+        strains: [.sampleGDP, .sampleBlueDream],
+        analysis: StrainAnalysis(
+            headline: "GDP is the calmer night pick.",
+            summary: "Granddaddy Purple is heavier for sleep. Blue Dream stays useful if you also need daytime function.",
+            forCondition: ConditionPick(
+                best: "Granddaddy Purple",
+                why: "Stronger sleep reports.",
+                runnerUp: "Blue Dream"
+            ),
+            keyDifferences: ["GDP is more sedating", "Blue Dream is more daytime-friendly"],
+            commonGround: ["Both show up in pain and stress reports"],
+            cautions: ["Start low", "Talk to your clinician"]
+        ),
+        resultId: "preview-compare"
+    )
+}
+
 extension RecommendationResult {
     static let sample = RecommendationResult(
         headline: "Granddaddy Purple is the calmer night pick.",

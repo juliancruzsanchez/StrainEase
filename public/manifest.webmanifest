@@ -1,6 +1,6 @@
 {
-  "name": "StrainWise",
-  "short_name": "StrainWise",
+  "name": "StrainEase",
+  "short_name": "StrainEase",
   "description": "Compare cannabis strains for medical relief — research aggregated from Leafly, Weedmaps, Reddit, Google, and dispensary menus.",
   "start_url": "/",
   "display": "standalone",

@@ -23,6 +23,7 @@
 		6095DCC80D3B11AC0277C9C7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72C17AE9087DBDFF7D7797 /* RootView.swift */; };
 		621493CE6C3754302F942C5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FF168A5C719F3D3F4702B35 /* GoogleService-Info.plist */; };
 		6226B4D380E3C3ED3A855843 /* SavedStrainsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC295805AFD32269131658 /* SavedStrainsStore.swift */; };
+		62C0D5C73AD25A325928159F /* strain-directory.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D1D2CBF28E9A81F7C08E37A /* strain-directory.json */; };
 		633BD06F38FBD9F2AF25952A /* FirebaseBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA329BD7AC6982E6FFCA16 /* FirebaseBootstrap.swift */; };
 		6C725C28B553AEA147616C9D /* StrainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5021241702655D0B556AB6 /* StrainModels.swift */; };
 		740F7B1DEF6572CBAE3740DA /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6453489643321FAC8E130F /* AccountView.swift */; };
@@ -33,10 +34,13 @@
 		A49771561CE42BA02A3F04D5 /* StrainCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05ED87EFE4C691805EC1BDF /* StrainCatalog.swift */; };
 		AA49FDAE50FA0663EF005E3A /* StrainMeaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B80469D8D6804EADE68021 /* StrainMeaning.swift */; };
 		ABE89A91398C06A7CF67EC69 /* StrainGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5599B52492008F8E0F1A0BE /* StrainGridView.swift */; };
+		B6CB1C666E93E807D5187575 /* TriedNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2652F71BBBAD5D6FD8B126B4 /* TriedNotesView.swift */; };
 		C87344DCC2E9E1AF323DB6EE /* FindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF600B1920EB5A90DD3333C /* FindView.swift */; };
 		CA9ED57AB2EECA8D8E5033BD /* StrainPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357E09006008AF14A9962959 /* StrainPoster.swift */; };
 		CD1D7CF23DE96B39F4092DA7 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90623AAD5EF394539B457A8B /* AuthSession.swift */; };
 		D9FEAB10B10430051A433189 /* RecentlyViewedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5343719095688D3656C44C69 /* RecentlyViewedStore.swift */; };
+		DDE5AAACC2608D2827D101F0 /* SavedAilmentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C632C6FAD1F5B55A8BF419D9 /* SavedAilmentsStore.swift */; };
+		E539D86FFDA3BE00A7831007 /* SavedAilmentsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C389D8B89AEC25782558D /* SavedAilmentsCard.swift */; };
 		E85F0249508AD4248A99E35A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 38DBE4EA04AC5FD23A40636A /* FirebaseAuth */; };
 		EACE6D28559732B70C74B060 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 557CE11C9808D248C14F797E /* FirebaseFirestore */; };
 		F9D327C95F3A4FB2EEFC1BD0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20E53734C990850060FB376 /* MainTabView.swift */; };
@@ -54,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		1946B1C8E418A237324A9C0E /* SavedStrainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedStrainsView.swift; sourceTree = "<group>"; };
+		2652F71BBBAD5D6FD8B126B4 /* TriedNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriedNotesView.swift; sourceTree = "<group>"; };
 		27B1646A9054529E30CC001E /* MeshBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshBackground.swift; sourceTree = "<group>"; };
 		357E09006008AF14A9962959 /* StrainPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainPoster.swift; sourceTree = "<group>"; };
 		3A492F65A674EC783E6A321B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -62,7 +67,9 @@
 		3FF168A5C719F3D3F4702B35 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DFD8F953A71CFC1CABFB544 /* StrainWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StrainWise.entitlements; sourceTree = "<group>"; };
 		5343719095688D3656C44C69 /* RecentlyViewedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedStore.swift; sourceTree = "<group>"; };
+		588C389D8B89AEC25782558D /* SavedAilmentsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAilmentsCard.swift; sourceTree = "<group>"; };
 		5D58596872C36B0B71B8273B /* StrainWiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainWiseTests.swift; sourceTree = "<group>"; };
+		6D1D2CBF28E9A81F7C08E37A /* strain-directory.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "strain-directory.json"; sourceTree = "<group>"; };
 		73221765338B5CEE84DE1532 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		81D84ECF38795DF6FC6B7F3B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8A665A0D5B80618873C1876F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +86,7 @@
 		BD6BED43C81ED4D1C4CB2E4E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		C05ED87EFE4C691805EC1BDF /* StrainCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainCatalog.swift; sourceTree = "<group>"; };
 		C5FA329BD7AC6982E6FFCA16 /* FirebaseBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBootstrap.swift; sourceTree = "<group>"; };
+		C632C6FAD1F5B55A8BF419D9 /* SavedAilmentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAilmentsStore.swift; sourceTree = "<group>"; };
 		CF6453489643321FAC8E130F /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D20E828C1589484B8E4813CC /* StrainWiseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = StrainWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2066F18BF00D3A96EA5874F /* StrainWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainWiseApp.swift; sourceTree = "<group>"; };
@@ -145,6 +153,7 @@
 				C5FA329BD7AC6982E6FFCA16 /* FirebaseBootstrap.swift */,
 				73221765338B5CEE84DE1532 /* PreviewData.swift */,
 				5343719095688D3656C44C69 /* RecentlyViewedStore.swift */,
+				C632C6FAD1F5B55A8BF419D9 /* SavedAilmentsStore.swift */,
 				8AAC295805AFD32269131658 /* SavedStrainsStore.swift */,
 				F65A3E705F0FE0B8BB24C080 /* StrainAPI.swift */,
 			);
@@ -165,6 +174,7 @@
 			children = (
 				A321898C1D21B156F5E656AF /* StrainDetailView.swift */,
 				94B80469D8D6804EADE68021 /* StrainMeaning.swift */,
+				2652F71BBBAD5D6FD8B126B4 /* TriedNotesView.swift */,
 			);
 			path = Strain;
 			sourceTree = "<group>";
@@ -204,6 +214,7 @@
 				56013FB91A9810496FDDF8F7 /* Find */,
 				777CA84F052C9E68974B82C4 /* Home */,
 				0D38EA4FCE0C31E6084FE599 /* Models */,
+				BBF05652C1DA53EA0B8EBA62 /* Resources */,
 				5634A2CEFF60FD7712A4E8F8 /* Services */,
 				6DA15F6B3C96347A7A00E4F6 /* Strain */,
 				C4B4A013F11A481D590892B5 /* Theme */,
@@ -215,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				CF6453489643321FAC8E130F /* AccountView.swift */,
+				588C389D8B89AEC25782558D /* SavedAilmentsCard.swift */,
 				1946B1C8E418A237324A9C0E /* SavedStrainsView.swift */,
 			);
 			path = Account;
@@ -226,6 +238,14 @@
 				5D58596872C36B0B71B8273B /* StrainWiseTests.swift */,
 			);
 			path = StrainWiseTests;
+			sourceTree = "<group>";
+		};
+		BBF05652C1DA53EA0B8EBA62 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6D1D2CBF28E9A81F7C08E37A /* strain-directory.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C4B4A013F11A481D590892B5 /* Theme */ = {
@@ -331,6 +351,7 @@
 			files = (
 				2E471769498EEA1A6FFF5C5A /* Assets.xcassets in Resources */,
 				621493CE6C3754302F942C5E /* GoogleService-Info.plist in Resources */,
+				62C0D5C73AD25A325928159F /* strain-directory.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +385,8 @@
 				35447C27AB56EA978EFEF102 /* PreviewData.swift in Sources */,
 				D9FEAB10B10430051A433189 /* RecentlyViewedStore.swift in Sources */,
 				6095DCC80D3B11AC0277C9C7 /* RootView.swift in Sources */,
+				E539D86FFDA3BE00A7831007 /* SavedAilmentsCard.swift in Sources */,
+				DDE5AAACC2608D2827D101F0 /* SavedAilmentsStore.swift in Sources */,
 				6226B4D380E3C3ED3A855843 /* SavedStrainsStore.swift in Sources */,
 				3FEFF8C3F117480B676C9144 /* SavedStrainsView.swift in Sources */,
 				5B82EA188A2606CC5FC5C9CE /* SignInView.swift in Sources */,
@@ -375,6 +398,7 @@
 				6C725C28B553AEA147616C9D /* StrainModels.swift in Sources */,
 				CA9ED57AB2EECA8D8E5033BD /* StrainPoster.swift in Sources */,
 				2EE1AB2C26823B1AFDD93FE0 /* StrainWiseApp.swift in Sources */,
+				B6CB1C666E93E807D5187575 /* TriedNotesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

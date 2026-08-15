@@ -289,13 +289,13 @@ function LandingNav({
         <Link to="/" className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-2">
           <img
             src={logo}
-            alt="StrainWise logo"
+            alt="StrainEase logo"
             width={32}
             height={32}
             className="rounded-[10px]"
           />
           <span className="text-[15px] font-semibold tracking-tight">
-            StrainWise
+            StrainEase
           </span>
         </Link>
 
@@ -444,7 +444,7 @@ export default function Landing() {
               you need
             </h1>
             <p className="mt-6 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg">
-              Tell StrainWise what you&apos;re treating — it researches Leafly,
+              Tell StrainEase what you&apos;re treating — it researches Leafly,
               Weedmaps, Reddit, Google and dispensary menus, then uses AI to
               rank the strains patients report work best for your symptoms.
             </p>
@@ -527,7 +527,7 @@ export default function Landing() {
               ))}
             </div>
             <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-              Pick your symptoms and StrainWise researches the strains patients
+              Pick your symptoms and StrainEase researches the strains patients
               report work best for them — then ranks the top matches so you
               can compare the finalists side by side.
             </p>
@@ -630,7 +630,7 @@ export default function Landing() {
               </em>
             </h2>
             <p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground sm:text-base">
-              StrainWise doesn&apos;t guess. Each strain profile aggregates
+              StrainEase doesn&apos;t guess. Each strain profile aggregates
               commonly reported information from the sources patients actually
               use, then our AI weighs them together for a practical,
               medical-focused verdict.
@@ -692,7 +692,7 @@ export default function Landing() {
           <div>
             <p className="text-sm font-semibold">Not medical advice</p>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">
-              StrainWise is an information and comparison tool. Nothing here is
+              StrainEase is an information and comparison tool. Nothing here is
               a diagnosis, prescription, or treatment recommendation. Always
               consult a qualified healthcare provider before using cannabis for
               medical purposes — especially if you take other medication.
@@ -738,13 +738,13 @@ export default function Landing() {
           <Link to="/" className="flex items-center gap-2.5">
             <img
               src={logo}
-              alt="StrainWise logo"
+              alt="StrainEase logo"
               width={28}
               height={28}
               className="rounded-lg"
             />
             <span className="text-sm font-semibold tracking-tight">
-              StrainWise
+              StrainEase
             </span>
           </Link>
           <p className="text-center text-xs text-muted-foreground">

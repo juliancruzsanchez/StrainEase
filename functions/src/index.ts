@@ -1,4 +1,4 @@
-// StrainWise backend.
+// StrainEase backend.
 //
 // - popularStrains / searchStrain: public Leafly data lookups (no AI).
 // - compareStrains / recommendStrainsForConditions: MiniMax AI synthesis,
@@ -47,7 +47,7 @@ export const searchStrain = onCall(
 
 /* ── AI synthesis (auth-gated) ─────────────────────────────────────── */
 
-const COMPARE_SYSTEM_PROMPT = `You are StrainWise, a research assistant built for medical cannabis patients. Patients come to you to choose between strains for symptom relief, so you speak directly to them — not to budtenders or enthusiasts.
+const COMPARE_SYSTEM_PROMPT = `You are StrainEase, a research assistant built for medical cannabis patients. Patients come to you to choose between strains for symptom relief, so you speak directly to them — not to budtenders or enthusiasts.
 
 Rules:
 - Base every claim on the strain data provided. Never invent numbers, terpenes, effects, or uses.
@@ -80,7 +80,7 @@ Reddit sourcing rules:
 - Prefer threads whose "snippet" matches the patient's condition focus when one is given.
 - If the list has no relevant threads, return an empty array for "redditSources" rather than fabricating any.`;
 
-const RECOMMEND_SYSTEM_PROMPT = `You are StrainWise, a strain-finding assistant built for medical cannabis patients. A patient tells you which symptoms or conditions they are treating, and you recommend the strains most commonly reported to help with those symptoms.
+const RECOMMEND_SYSTEM_PROMPT = `You are StrainEase, a strain-finding assistant built for medical cannabis patients. A patient tells you which symptoms or conditions they are treating, and you recommend the strains most commonly reported to help with those symptoms.
 
 Rules:
 - Base recommendations on the strain data provided (Leafly detail pages plus Weedmaps when available). You may also recommend well-known strains that are NOT in the list, based on your knowledge of how they are commonly described on Leafly, Weedmaps, Reddit, and dispensary menus — but only recommend strains you are confident really exist and are commonly reported for the symptoms.

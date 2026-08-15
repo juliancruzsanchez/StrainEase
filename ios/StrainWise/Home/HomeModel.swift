@@ -7,6 +7,7 @@ enum HomeSection: Hashable, Identifiable {
     case indica
     case ailment(String)
     case popular
+    case directory
 
     var id: String {
         switch self {
@@ -16,6 +17,7 @@ enum HomeSection: Hashable, Identifiable {
         case .indica: "indica"
         case .ailment(let name): "ailment-\(name)"
         case .popular: "popular"
+        case .directory: "directory"
         }
     }
 
@@ -27,6 +29,7 @@ enum HomeSection: Hashable, Identifiable {
         case .indica: "Indica"
         case .ailment(let name): name
         case .popular: "Popular strains"
+        case .directory: "Strain directory"
         }
     }
 }
@@ -72,6 +75,8 @@ final class HomeModel {
         case .ailment(let name):
             StrainCatalog.matching(ailment: name, live: popular)
         case .popular:
+            StrainCatalog.merge(popular)
+        case .directory:
             StrainCatalog.merge(popular)
         }
     }

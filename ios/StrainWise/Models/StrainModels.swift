@@ -110,6 +110,27 @@ struct StrainRecommendation: Codable, Hashable, Identifiable, Sendable {
     var id: String { strainName.lowercased() }
 }
 
+struct ConditionPick: Codable, Hashable, Sendable {
+    var best: String
+    var why: String
+    var runnerUp: String
+}
+
+struct StrainAnalysis: Codable, Hashable, Sendable {
+    var headline: String
+    var summary: String
+    var forCondition: ConditionPick?
+    var keyDifferences: [String]
+    var commonGround: [String]
+    var cautions: [String]
+}
+
+struct StrainComparison: Codable, Hashable, Sendable {
+    var strains: [StrainProfile]
+    var analysis: StrainAnalysis
+    var resultId: String?
+}
+
 struct RecommendationResult: Codable, Hashable, Sendable {
     var headline: String
     var summary: String

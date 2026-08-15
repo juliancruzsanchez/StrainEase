@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// StrainWise color tokens — converted from the web `oklch` theme in `src/index.css`.
+/// StrainEase color tokens — converted from the web `oklch` theme in `src/index.css`.
 enum Palette {
     static let background = Color(light: rgb(0.967, 0.981, 0.971), dark: rgb(0.043, 0.067, 0.053))
     static let foreground = Color(light: rgb(0.099, 0.144, 0.119), dark: rgb(0.906, 0.929, 0.914))

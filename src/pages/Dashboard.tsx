@@ -309,13 +309,13 @@ export default function Dashboard() {
           <Link to="/" className="flex items-center gap-2.5">
             <img
               src={logo}
-              alt="StrainWise logo"
+              alt="StrainEase logo"
               width={30}
               height={30}
               className="rounded-lg"
             />
             <span className="text-base font-semibold tracking-tight">
-              StrainWise
+              StrainEase
             </span>
           </Link>
           <div className="flex items-center gap-4">

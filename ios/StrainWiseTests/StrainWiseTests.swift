@@ -65,7 +65,30 @@ final class StrainWiseTests: XCTestCase {
         XCTAssertEqual(doc["thcRange"] as? String, "17–23%")
         XCTAssertNil(doc["imageUrl"] as? String)
         XCTAssertNotNil(doc["savedAt"] as? Int)
-        XCTAssertEqual((doc["notes"] as? [Any])?.count, 0)
+        XCTAssertNil(doc["notes"], "Notes must be omitted so a re-save cannot wipe them")
+    }
+
+    @MainActor
+    func testAilmentNormalizeAndEquality() {
+        XCTAssertEqual(
+            SavedAilmentsStore.normalize(["Anxiety", " anxiety ", "OCD", ""]),
+            ["Anxiety", "OCD"]
+        )
+        XCTAssertTrue(SavedAilmentsStore.equal(["ADHD", "Anxiety"], ["anxiety", "adhd"]))
+        XCTAssertFalse(SavedAilmentsStore.equal(["Anxiety"], ["ADHD"]))
+    }
+
+    @MainActor
+    func testPreviewNotesSaveOnTriedStrain() async {
+        let store = SavedStrainsStore.preview()
+        await store.addNote(to: .sampleGDP, text: "Helped me sleep")
+        XCTAssertTrue(store.isSaved("granddaddy-purple"))
+        XCTAssertEqual(store.notes(for: "granddaddy-purple").map(\.text), ["Helped me sleep"])
+    }
+
+    func testDirectoryIncludesLeaflyDump() {
+        XCTAssertGreaterThanOrEqual(StrainCatalog.all.count, 150)
+        XCTAssertTrue(StrainCatalog.all.contains { $0.slug == "blue-dream" })
     }
 
     @MainActor
@@ -114,6 +137,8 @@ final class StrainWiseTests: XCTestCase {
         XCTAssertEqual(model.preview(.sativa).count, 6)
         XCTAssertGreaterThan(model.strains(for: .sativa).count, 6)
         XCTAssertEqual(model.preview(.popular).count, 6)
+        XCTAssertEqual(model.preview(.directory).count, 6)
+        XCTAssertGreaterThan(model.strains(for: .directory).count, 20)
         XCTAssertEqual(model.preview(.ailment("Insomnia")).count, 6)
     }
 
@@ -206,5 +231,17 @@ final class StrainWiseTests: XCTestCase {
         XCTAssertEqual(decoded.profile(named: "granddaddy purple")?.leaflyRating, 4.5)
         XCTAssertEqual(decoded.profile(named: "granddaddy purple")?.leaflyReviewCount, 3201)
         XCTAssertEqual(decoded.profile(named: "granddaddy purple")?.quoteNotes.count, 1)
+    }
+
+    @MainActor
+    func testCompareNeedsTwoStrains() {
+        let model = FindModel(api: PreviewStrainAPI())
+        XCTAssertFalse(model.canCompare)
+        model.addToCompare("Blue Dream")
+        XCTAssertFalse(model.canCompare)
+        model.addToCompare("Granddaddy Purple")
+        XCTAssertTrue(model.canCompare)
+        model.addToCompare("Blue Dream")
+        XCTAssertEqual(model.compareNames.count, 2)
     }
 }

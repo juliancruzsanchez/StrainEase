@@ -28,6 +28,9 @@ targets:
         excludes:
           - "**/.DS_Store"
           - "GoogleService-Info.plist"
+          - "Resources/**"
+      - path: StrainWise/Resources
+        buildPhase: resources
       - path: StrainWise/GoogleService-Info.plist
         buildPhase: resources
         type: file

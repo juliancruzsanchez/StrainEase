@@ -5,6 +5,7 @@ import SwiftUI
 struct StrainWiseApp: App {
     @State private var session = AuthSession()
     @State private var saved = SavedStrainsStore()
+    @State private var ailments = SavedAilmentsStore()
     @State private var recents = RecentlyViewedStore()
 
     init() {
@@ -16,6 +17,7 @@ struct StrainWiseApp: App {
             RootView()
                 .environment(session)
                 .environment(saved)
+                .environment(ailments)
                 .environment(recents)
                 .tint(Palette.primary)
                 .preferredColorScheme(nil)
@@ -23,8 +25,10 @@ struct StrainWiseApp: App {
                 .onChange(of: session.user?.uid, initial: true) { _, uid in
                     if let uid {
                         saved.listen(uid: uid)
+                        ailments.listen(uid: uid)
                     } else {
                         saved.reset()
+                        ailments.reset()
                     }
                 }
                 .onOpenURL { url in

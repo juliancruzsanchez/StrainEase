@@ -2,6 +2,30 @@ import FirebaseAuth
 import FirebaseFirestore
 import Foundation
 
+struct SavedNote: Identifiable, Hashable, Sendable {
+    var id: String
+    var text: String
+    var isPublic: Bool
+    var createdAt: Int
+    var publicId: String?
+
+    static func parse(_ raw: Any?) -> [SavedNote] {
+        guard let rows = raw as? [[String: Any]] else { return [] }
+        return rows.compactMap { row in
+            guard let id = row["id"] as? String,
+                  let text = row["text"] as? String
+            else { return nil }
+            return SavedNote(
+                id: id,
+                text: text,
+                isPublic: row["isPublic"] as? Bool ?? false,
+                createdAt: row["createdAt"] as? Int ?? 0,
+                publicId: row["publicId"] as? String
+            )
+        }
+    }
+}
+
 struct SavedStrainItem: Identifiable, Hashable, Sendable {
     var slug: String
     var name: String
@@ -9,6 +33,7 @@ struct SavedStrainItem: Identifiable, Hashable, Sendable {
     var thcRange: String?
     var imageUrl: String?
     var savedAt: Int
+    var notes: [SavedNote]
 
     var id: String { slug }
 
@@ -22,22 +47,32 @@ struct SavedStrainItem: Identifiable, Hashable, Sendable {
         )
     }
 
-    init(slug: String, name: String, type: StrainType?, thcRange: String?, imageUrl: String?, savedAt: Int) {
+    init(
+        slug: String,
+        name: String,
+        type: StrainType?,
+        thcRange: String?,
+        imageUrl: String?,
+        savedAt: Int,
+        notes: [SavedNote] = []
+    ) {
         self.slug = slug
         self.name = name
         self.type = type
         self.thcRange = thcRange
         self.imageUrl = imageUrl
         self.savedAt = savedAt
+        self.notes = notes
     }
 
-    init(profile: StrainProfile, savedAt: Int = 0) {
+    init(profile: StrainProfile, savedAt: Int = 0, notes: [SavedNote] = []) {
         slug = profile.slug
         name = profile.name
         type = profile.type
         thcRange = profile.thcRange
         imageUrl = profile.imageUrl
         self.savedAt = savedAt
+        self.notes = notes
     }
 }
 
@@ -100,7 +135,8 @@ final class SavedStrainsStore {
                             type: typeRaw.flatMap(StrainType.init(rawValue:)),
                             thcRange: data["thcRange"] as? String,
                             imageUrl: data["imageUrl"] as? String,
-                            savedAt: data["savedAt"] as? Int ?? 0
+                            savedAt: data["savedAt"] as? Int ?? 0,
+                            notes: SavedNote.parse(data["notes"])
                         )
                     }
                     .sorted { $0.savedAt > $1.savedAt }
@@ -139,7 +175,7 @@ final class SavedStrainsStore {
             if wasSaved {
                 try await ref.delete()
             } else {
-                try await ref.setData(Self.document(for: profile))
+                try await ref.setData(Self.document(for: profile), merge: true)
             }
         } catch {
             if wasSaved {
@@ -158,7 +194,72 @@ final class SavedStrainsStore {
         return uid
     }
 
-    /// Matches the web `saveStrain` payload so notes/lists stay compatible.
+    func notes(for slug: String) -> [SavedNote] {
+        items.first { $0.slug == slug }?.notes ?? []
+    }
+
+    /// Saves the strain if needed, then appends a private note — same shape as web `addNote`.
+    func addNote(to profile: StrainProfile, text: String) async {
+        let trimmed = String(text.trimmingCharacters(in: .whitespacesAndNewlines).prefix(1999))
+        guard !trimmed.isEmpty, !profile.slug.isEmpty, !isBusy else { return }
+        let note = SavedNote(
+            id: "\(Int(Date().timeIntervalSince1970 * 1000))-\(UUID().uuidString.prefix(6).lowercased())",
+            text: trimmed,
+            isPublic: false,
+            createdAt: Int(Date().timeIntervalSince1970 * 1000)
+        )
+        if let index = items.firstIndex(where: { $0.slug == profile.slug }) {
+            items[index].notes.append(note)
+        } else {
+            items.insert(SavedStrainItem(profile: profile, savedAt: note.createdAt, notes: [note]), at: 0)
+        }
+        errorMessage = nil
+        guard !previewOnly else { return }
+
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            let ref = Firestore.firestore()
+                .collection("users")
+                .document(try currentUID())
+                .collection("savedStrains")
+                .document(profile.slug)
+            try await ref.setData(Self.document(for: profile), merge: true)
+            let next = items.first { $0.slug == profile.slug }?.notes ?? [note]
+            try await ref.setData(["notes": next.map(Self.noteDocument)], merge: true)
+        } catch {
+            if let index = items.firstIndex(where: { $0.slug == profile.slug }) {
+                items[index].notes.removeAll { $0.id == note.id }
+            }
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func removeNote(slug: String, noteId: String) async {
+        guard let index = items.firstIndex(where: { $0.slug == slug }) else { return }
+        let previous = items[index].notes
+        items[index].notes.removeAll { $0.id == noteId }
+        errorMessage = nil
+        guard !previewOnly else { return }
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            try await Firestore.firestore()
+                .collection("users")
+                .document(try currentUID())
+                .collection("savedStrains")
+                .document(slug)
+                .setData(
+                    ["notes": items[index].notes.map(Self.noteDocument)],
+                    merge: true
+                )
+        } catch {
+            items[index].notes = previous
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// Matches the web `saveStrain` payload. Notes are omitted so a re-save cannot wipe them.
     static func document(for profile: StrainProfile) -> [String: Any] {
         [
             "name": profile.name,
@@ -166,7 +267,19 @@ final class SavedStrainsStore {
             "thcRange": profile.thcRange ?? NSNull(),
             "imageUrl": profile.imageUrl ?? NSNull(),
             "savedAt": Int(Date().timeIntervalSince1970 * 1000),
-            "notes": [] as [Any],
         ]
+    }
+
+    static func noteDocument(_ note: SavedNote) -> [String: Any] {
+        var data: [String: Any] = [
+            "id": note.id,
+            "text": note.text,
+            "isPublic": note.isPublic,
+            "createdAt": note.createdAt,
+        ]
+        if let publicId = note.publicId {
+            data["publicId"] = publicId
+        }
+        return data
     }
 }

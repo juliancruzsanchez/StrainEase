@@ -1,9 +1,16 @@
 import Foundation
 
 enum StrainCatalog {
-    /// Curated browse set so Home rails always have 6+ strains per type and ailment,
-    /// even when the live popular list is short or missing a phenotype.
-    static let all: [StrainProfile] = [
+    private struct DirectoryEntry: Decodable {
+        var name: String
+        var type: StrainType
+        var thc: String
+        var uses: [String]
+        var imageUrl: String?
+    }
+
+    /// Curated set so every type / ailment rail still has 6+ strains.
+    private static let curated: [StrainProfile] = [
         entry("Blue Dream", .hybrid, "17–24%", ["Chronic pain", "Depression", "Stress", "Fatigue", "Inflammation", "Arthritis"]),
         entry("Granddaddy Purple", .indica, "17–23%", ["Insomnia", "Chronic pain", "Muscle spasm", "Stress", "PTSD", "Anxiety"]),
         entry("Sour Diesel", .sativa, "19–24%", ["ADHD", "Stress", "Depression", "Chronic pain", "Fatigue", "Migraine"]),
@@ -30,20 +37,25 @@ enum StrainCatalog {
         entry("Tangie", .sativa, "17–22%", ["ADHD", "Fatigue", "Depression", "Stress"]),
     ]
 
+    /// Leafly + Weedmaps dump (same JSON as the web directory).
+    private static let directory: [StrainProfile] = loadDirectory()
+
+    /// Curated rows win on medical uses when a name also appears in the dump.
+    static let all: [StrainProfile] = unique(curated + directory).map(applyPhoto)
+
     static func merge(_ live: [StrainProfile], preferringType type: StrainType? = nil) -> [StrainProfile] {
         let extras = all.filter { catalog in
             if let type, catalog.type != type { return false }
             return !live.contains { $0.slug == catalog.slug }
         }
         let head = type == nil ? live : live.filter { $0.type == type }
-        return unique(head + extras).map(withCatalogPhoto)
+        return unique(head + extras).map(fillMissing)
     }
 
     static func matching(ailment: String, live: [StrainProfile]) -> [StrainProfile] {
-        let combined = unique(live + all)
+        let combined = unique(live + all).map(fillMissing)
         let hits = combined.filter { matches($0, ailment: ailment) }
-        let list = hits.isEmpty ? Array(combined.prefix(8)) : hits
-        return list.map(withCatalogPhoto)
+        return hits.isEmpty ? Array(combined.prefix(8)) : hits
     }
 
     static func unique(_ profiles: [StrainProfile]) -> [StrainProfile] {
@@ -51,19 +63,18 @@ enum StrainCatalog {
         var order: [String] = []
         for profile in profiles where !profile.name.isEmpty {
             let slug = profile.slug
-            if let existing = seen[slug] {
-                var next = existing
-                if (next.imageUrl == nil || next.imageUrl?.isEmpty == true),
+            if var existing = seen[slug] {
+                if (existing.imageUrl == nil || existing.imageUrl?.isEmpty == true),
                    let imageUrl = profile.imageUrl, !imageUrl.isEmpty {
-                    next.imageUrl = imageUrl
+                    existing.imageUrl = imageUrl
                 }
-                if (next.medicalUses == nil || next.medicalUses?.isEmpty == true),
+                if (existing.medicalUses == nil || existing.medicalUses?.isEmpty == true),
                    let uses = profile.medicalUses, !uses.isEmpty {
-                    next.medicalUses = uses
+                    existing.medicalUses = uses
                 }
-                if next.type == nil { next.type = profile.type }
-                if next.thcRange == nil { next.thcRange = profile.thcRange }
-                seen[slug] = next
+                if existing.type == nil { existing.type = profile.type }
+                if existing.thcRange == nil { existing.thcRange = profile.thcRange }
+                seen[slug] = existing
             } else {
                 seen[slug] = profile
                 order.append(slug)
@@ -106,11 +117,16 @@ enum StrainCatalog {
         "tangie": "https://leafly-public.imgix.net/strains/photos/8wTMziz0RQaJqNE4juPn_Tangie.png",
     ]
 
-    private static func withCatalogPhoto(_ profile: StrainProfile) -> StrainProfile {
+    private static func applyPhoto(_ profile: StrainProfile) -> StrainProfile {
         var next = profile
         if next.imageUrl == nil || next.imageUrl?.isEmpty == true {
             next.imageUrl = photos[profile.slug]
         }
+        return next
+    }
+
+    private static func fillMissing(_ profile: StrainProfile) -> StrainProfile {
+        var next = applyPhoto(profile)
         if next.medicalUses == nil || next.medicalUses?.isEmpty == true,
            let uses = all.first(where: { $0.slug == profile.slug })?.medicalUses {
             next.medicalUses = uses
@@ -122,15 +138,39 @@ enum StrainCatalog {
         _ name: String,
         _ type: StrainType,
         _ thc: String,
-        _ uses: [String]
+        _ uses: [String],
+        imageUrl: String? = nil
     ) -> StrainProfile {
-        let stub = StrainProfile(
+        StrainProfile(
             name: name,
             inKnowledgeBase: true,
             type: type,
             thcRange: thc,
-            medicalUses: uses
+            medicalUses: uses,
+            imageUrl: imageUrl ?? photos[StrainProfile(name: name, inKnowledgeBase: true).slug]
         )
-        return withCatalogPhoto(stub)
+    }
+
+    private static func loadDirectory() -> [StrainProfile] {
+        let url = Bundle.main.url(forResource: "strain-directory", withExtension: "json")
+            ?? Bundle(for: BundleToken.self).url(forResource: "strain-directory", withExtension: "json")
+        guard let url,
+              let data = try? Data(contentsOf: url),
+              let rows = try? JSONDecoder().decode([DirectoryEntry].self, from: data)
+        else { return [] }
+        return rows.compactMap { row in
+            let name = row.name.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !name.isEmpty else { return nil }
+            return StrainProfile(
+                name: name,
+                inKnowledgeBase: true,
+                type: row.type,
+                thcRange: row.thc.isEmpty ? nil : row.thc,
+                medicalUses: row.uses.isEmpty ? nil : row.uses,
+                imageUrl: row.imageUrl
+            )
+        }
     }
 }
+
+private final class BundleToken {}

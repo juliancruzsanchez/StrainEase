@@ -1,0 +1,1962 @@
+[
+  {
+    "name": "24k Gold",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/dark-green/strain-8.png",
+    "uses": [
+      "PTSD",
+      "Arthritis",
+      "Inflammation",
+      "Depression",
+      "Anxiety",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Acapulco Gold",
+    "type": "sativa",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/acapulco.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "AK-47",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-1.png",
+    "uses": [
+      "Stress",
+      "Anxiety",
+      "Chronic pain",
+      "Depression",
+      "Nausea & appetite",
+      "Insomnia"
+    ]
+  },
+  {
+    "name": "Alaskan Thunder Fuck",
+    "type": "hybrid",
+    "thc": "~16%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-11.png",
+    "uses": [
+      "Depression",
+      "Stress",
+      "Anxiety",
+      "Fatigue",
+      "Chronic pain",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Alien Cookies",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/dark-green/strain-7.png",
+    "uses": [
+      "Anxiety",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Alien OG",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-1.png",
+    "uses": [
+      "Anxiety",
+      "Chronic pain",
+      "Stress",
+      "Depression",
+      "Insomnia",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Amnesia Haze",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-25.png",
+    "uses": [
+      "Depression",
+      "Stress",
+      "Fatigue",
+      "Anxiety",
+      "Chronic pain",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Apple Fritter",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/ziw0L3SZSIyM6uiLup73_AppleFritter%20(1).jpg",
+    "uses": [
+      "Anxiety",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Atomic",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-40.png",
+    "uses": [
+      "Depression",
+      "Stress",
+      "Anxiety",
+      "Insomnia",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Banana Kush",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-33.png",
+    "uses": [
+      "Anxiety",
+      "Stress",
+      "Chronic pain",
+      "Depression",
+      "PTSD",
+      "Insomnia"
+    ]
+  },
+  {
+    "name": "Banana OG",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-5.png",
+    "uses": [
+      "Arthritis",
+      "Insomnia",
+      "Anxiety",
+      "Muscle spasm",
+      "Nausea & appetite",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Birthday Cake",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/SE8l5t1RSwaS90RQPSl6_birthdaycake.jpg",
+    "uses": [
+      "Anxiety",
+      "Migraine",
+      "Muscle spasm",
+      "Depression",
+      "Stress",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Biscotti",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-29.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Black Cherry Gelato",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-25.png",
+    "uses": [
+      "Nausea & appetite",
+      "Stress",
+      "Anxiety",
+      "Insomnia",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Black Ice",
+    "type": "indica",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-23.png",
+    "uses": [
+      "Insomnia",
+      "Arthritis",
+      "Anxiety",
+      "Chronic pain",
+      "PTSD",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Black Maple",
+    "type": "hybrid",
+    "thc": "~26%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-14.png",
+    "uses": [
+      "Chronic pain",
+      "Anxiety",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Blackberry",
+    "type": "hybrid",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/frosty/strain-1.png",
+    "uses": [
+      "Insomnia",
+      "Chronic pain",
+      "Arthritis",
+      "Anxiety",
+      "Muscle spasm",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Blackberry Kush",
+    "type": "indica",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-37.png",
+    "uses": [
+      "Insomnia",
+      "Chronic pain",
+      "Anxiety",
+      "Stress",
+      "Nausea & appetite",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "Blue Dream",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/blue-dream.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Chronic pain",
+      "Migraine",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Blue Lobster",
+    "type": "hybrid",
+    "thc": "~27%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/CVcoTJZ7SR66dlu7y6uW_Blue%20Lobster.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Blue Nerds",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-37.png",
+    "uses": [
+      "Anxiety",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Blue Sunset Sherbert",
+    "type": "hybrid",
+    "thc": "~28%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-21.png",
+    "uses": [
+      "Stress",
+      "Depression",
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Blue Zushi",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/qqsGpW4oRJmk2kxEVh8Q_Blue%20Zushi%20(David%20Downs:Leafly).jpg",
+    "uses": [
+      "Anxiety",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Blueberry Kush",
+    "type": "indica",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-14.png",
+    "uses": [
+      "Insomnia",
+      "Chronic pain",
+      "Anxiety",
+      "Stress",
+      "Muscle spasm",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Blueberry Muffin",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-3.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Stress",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Blueberry Pancakes",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-1.png",
+    "uses": [
+      "Inflammation",
+      "Anxiety",
+      "PTSD",
+      "Arthritis",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Bubba Kush",
+    "type": "indica",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/bubba-kush.png",
+    "uses": [
+      "Insomnia",
+      "Chronic pain",
+      "Muscle spasm",
+      "Nausea & appetite",
+      "Stress",
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Bubble Gum",
+    "type": "hybrid",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-32.png",
+    "uses": [
+      "Stress",
+      "Depression",
+      "Chronic pain",
+      "Anxiety",
+      "Nausea & appetite",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "Bubblegum Gelato",
+    "type": "indica",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-36.png",
+    "uses": [
+      "Anxiety",
+      "Stress",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Candy Fumez",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-39.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Cap Junky",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/YewiQ2IoTQOG9h6saIVZ_LA%20Made%20-%20Cap%20Junky%20-%20cover%20-%20David%20Downs%20at%20leafly%20copy%20smol.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Nausea & appetite",
+      "Arthritis",
+      "PTSD",
+      "Insomnia"
+    ]
+  },
+  {
+    "name": "Carbon Fiber",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-39.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Cereal Milk",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/fRrra4kRgiCHsreJvZDw_cereal%20milk%20nug%20small.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Cheese",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/cheese.png",
+    "uses": [
+      "Chronic pain",
+      "Stress",
+      "Anxiety",
+      "Insomnia",
+      "Nausea & appetite",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Cheetah Piss",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-10.png",
+    "uses": [
+      "Depression",
+      "Arthritis",
+      "Anxiety",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Chemdawg",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-1.png",
+    "uses": [
+      "Anxiety",
+      "Chronic pain",
+      "Stress",
+      "Depression",
+      "Nausea & appetite",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Cherry Gelato",
+    "type": "hybrid",
+    "thc": "~14%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-35.png",
+    "uses": [
+      "Anxiety",
+      "Stress",
+      "Depression",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Cherry Pie",
+    "type": "hybrid",
+    "thc": "~16%",
+    "imageUrl": "https://images.leafly.com/flower-images/cherry-pie.jpg",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Cherry Punch",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-18.png",
+    "uses": [
+      "PTSD",
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Cherry Runtz",
+    "type": "hybrid",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-11.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Insomnia",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Citradelic Sunset",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-17.png",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Cookies and Cream",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/WYY8ukOLRAuW8pdX2fVr_COOKIES%20&%20CREAM-181-edited.jpg",
+    "uses": [
+      "PTSD",
+      "Nausea & appetite",
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "Dante's Inferno",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-10.png",
+    "uses": [
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Donny Burger",
+    "type": "indica",
+    "thc": "~27%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-19.png",
+    "uses": [
+      "Anxiety",
+      "Nausea & appetite",
+      "Muscle spasm",
+      "Depression",
+      "Insomnia",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Dosidos",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://leafly-public.imgix.net/jdRI25LqQM6Wavphys2K_nug-dosidos-v1.jpg",
+    "uses": [
+      "Inflammation",
+      "Insomnia",
+      "Anxiety",
+      "PTSD",
+      "Arthritis",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Dragon Fruit",
+    "type": "hybrid",
+    "thc": "~14%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-40.png",
+    "uses": [
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Dulce De Uva",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/aoOlJboLQD23xRliMC1m_Dolce%20de%20Uva.png",
+    "uses": [
+      "Arthritis",
+      "Inflammation",
+      "Depression",
+      "Anxiety",
+      "Chronic pain",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Durban",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-18.png",
+    "uses": [
+      "Anxiety",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Durban Poison",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/durban-poison.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Stress",
+      "Anxiety",
+      "PTSD",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "FPOG",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-28.png",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "Nausea & appetite",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Garlic Breath",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-31.png",
+    "uses": [
+      "Anxiety",
+      "Insomnia",
+      "Arthritis",
+      "Depression",
+      "Chronic pain",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "Garlicane",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-10.png",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "Insomnia",
+      "Depression",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Gary Payton",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/JNC0ZSxRVGZyjFszg0po_GaryPayton%20(1).jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Gelato",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/gelato.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Nausea & appetite",
+      "Stress",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Gelato Cake",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-31.png",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "Nausea & appetite",
+      "Insomnia",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Gelonade",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-16.png",
+    "uses": [
+      "Fatigue",
+      "Anxiety",
+      "Depression"
+    ]
+  },
+  {
+    "name": "GG4",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/gg-4.jpg",
+    "uses": [
+      "PTSD",
+      "Arthritis",
+      "Inflammation",
+      "Nausea & appetite",
+      "Insomnia",
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Glitter Bomb",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/6Y0GrQZTiqkNThndHfJ7_Compound%20Genetics%20Glitter%20Bomb%20(David%20Downs:Leafly)%202.jpg",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "Depression",
+      "Insomnia",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "GMO Cookies",
+    "type": "hybrid",
+    "thc": "~28%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/red-orange-amber/strain-2.png",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "PTSD",
+      "Inflammation",
+      "Chronic pain",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "Golden Goat",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-30.png",
+    "uses": [
+      "Depression",
+      "Fatigue",
+      "Stress",
+      "Anxiety",
+      "Arthritis",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Gorilla Cookies",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-9.png",
+    "uses": [
+      "Anxiety",
+      "Inflammation",
+      "Nausea & appetite",
+      "Muscle spasm",
+      "Arthritis",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Granddaddy Purple",
+    "type": "indica",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/granddaddy-purple.png",
+    "uses": [
+      "Insomnia",
+      "Chronic pain",
+      "Anxiety",
+      "Nausea & appetite",
+      "Muscle spasm",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Grape Cream Cake",
+    "type": "indica",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-7.png",
+    "uses": [
+      "Anxiety",
+      "Chronic pain",
+      "Stress",
+      "Insomnia",
+      "PTSD",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Grape Gasoline",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-3.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Nausea & appetite",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Grease Monkey",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-27.png",
+    "uses": [
+      "Inflammation",
+      "Nausea & appetite",
+      "Anxiety",
+      "Insomnia",
+      "Muscle spasm",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Green Crack",
+    "type": "sativa",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/green-crack.png",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "ADHD"
+    ]
+  },
+  {
+    "name": "GSC",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/gsc.png",
+    "uses": [
+      "Nausea & appetite",
+      "Depression",
+      "Stress",
+      "Chronic pain",
+      "Anxiety",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Guava",
+    "type": "sativa",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-11.png",
+    "uses": [
+      "Anxiety",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Haze",
+    "type": "sativa",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/haze.png",
+    "uses": [
+      "Stress",
+      "Depression",
+      "Anxiety",
+      "Nausea & appetite",
+      "Fatigue",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Headband",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/3EbkAKSsTfyyIsmMfygd_Headband_jman_hdr.png",
+    "uses": [
+      "Anxiety",
+      "Stress",
+      "Depression",
+      "Migraine",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Hell's OG",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-12.png",
+    "uses": [
+      "Inflammation",
+      "Arthritis",
+      "PTSD",
+      "Insomnia",
+      "Anxiety",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "I-95",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-17.png",
+    "uses": [
+      "Arthritis",
+      "PTSD",
+      "Chronic pain",
+      "Anxiety",
+      "Depression",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Ice Cream",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-2.png",
+    "uses": [
+      "Depression",
+      "Nausea & appetite",
+      "Anxiety",
+      "Stress",
+      "Insomnia",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Ice Cream Cake",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-32.png",
+    "uses": [
+      "Anxiety",
+      "Insomnia",
+      "PTSD",
+      "Arthritis",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Jack Herer",
+    "type": "sativa",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/jack-herer.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "PTSD",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Jealousy",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/lfgn9PfQcS7RL18QA4te_Jealousy-PDP-Image-v1%20copy.jpeg",
+    "uses": [
+      "PTSD",
+      "Anxiety",
+      "Depression",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Jet Fuel",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-40.png",
+    "uses": [
+      "Depression",
+      "Fatigue",
+      "Inflammation",
+      "Stress",
+      "PTSD",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Jungle Pie",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-1.png",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "Chronic pain",
+      "Fatigue",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Key Lime Pie",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-1.png",
+    "uses": [
+      "Arthritis",
+      "PTSD",
+      "Chronic pain",
+      "Depression",
+      "Migraine",
+      "Stress"
+    ]
+  },
+  {
+    "name": "King Louis",
+    "type": "indica",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-1.png",
+    "uses": [
+      "Insomnia",
+      "Nausea & appetite",
+      "Muscle spasm",
+      "PTSD",
+      "Inflammation",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Kush Mints",
+    "type": "hybrid",
+    "thc": "~28%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-17.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Lemon Cherry Gelato",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-40.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis",
+      "Nausea & appetite",
+      "PTSD",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Lemon G",
+    "type": "sativa",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-33.png",
+    "uses": [
+      "Arthritis",
+      "Chronic pain",
+      "Anxiety",
+      "Inflammation",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Lemon Haze",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/red-orange-amber/strain-4.png",
+    "uses": [
+      "Depression",
+      "Stress",
+      "Anxiety",
+      "Fatigue",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Lilac Diesel",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-34.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Stress",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Limoncello",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-2.png",
+    "uses": [
+      "Anxiety",
+      "Arthritis",
+      "Depression",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "London Pound Cake",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-6.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Insomnia",
+      "Stress",
+      "Chronic pain",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "MAC",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-19.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Inflammation",
+      "PTSD",
+      "Stress",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Mac 1",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/X6WMoxxxTSFF7t7tOqgO_MAC.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Mac Daddy",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/frosty/strain-4.png",
+    "uses": [
+      "Anxiety",
+      "Chronic pain",
+      "Depression",
+      "Stress",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Mango Haze",
+    "type": "sativa",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/zT6M2MASsyZK8U9tZ9JA_MANGO%20HAZE-251-edited.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Stress",
+      "Muscle spasm",
+      "Anxiety",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Mango Kush",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/mango-kush.jpg",
+    "uses": [
+      "Stress",
+      "Anxiety",
+      "Depression",
+      "Muscle spasm",
+      "Nausea & appetite",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Maui Wowie",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-18.png",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "Chronic pain",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Mimosa",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/sE4UZNIUQbSxoqEEk0E1_Mimosa.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Fatigue",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Mochi",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-5.png",
+    "uses": [
+      "Arthritis",
+      "Anxiety",
+      "Insomnia",
+      "Nausea & appetite",
+      "Depression",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Modified Grapes",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-7.png",
+    "uses": [
+      "Anxiety",
+      "Arthritis",
+      "Insomnia",
+      "Depression",
+      "Chronic pain",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Moonbow",
+    "type": "hybrid",
+    "thc": "~30%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/X7z8yVrT2enzxAgfhLaD_Moonbow%20from%20flora%20and%20flame%20photo%20by%20david%20downs%20copy%20small.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Northern Lights",
+    "type": "indica",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/northern-lights.png",
+    "uses": [
+      "Insomnia",
+      "Anxiety",
+      "Chronic pain",
+      "Stress",
+      "PTSD",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "OG Kush",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/og-kush.png",
+    "uses": [
+      "Stress",
+      "Insomnia",
+      "Chronic pain",
+      "Anxiety",
+      "Nausea & appetite",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Orange Cookies",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/qjyKHW2TqXlzjGJyJoMA_ORANGE%20COOKIES-191-edited.jpg",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "PTSD",
+      "Nausea & appetite",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Pablo's Revenge",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-3.png",
+    "uses": [
+      "Anxiety",
+      "Arthritis",
+      "Chronic pain",
+      "PTSD",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Pancakes",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/frosty/strain-5.png",
+    "uses": [
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Papaya",
+    "type": "indica",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/BWnS6paT7mvEG0e4WMHw_PAPAYA-370-edited.jpg",
+    "uses": [
+      "Muscle spasm",
+      "Anxiety",
+      "Inflammation",
+      "Arthritis",
+      "Insomnia",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Peach Ringz",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-36.png",
+    "uses": [
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Peanut Butter Breath",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-6.png",
+    "uses": [
+      "Anxiety",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Permanent Marker",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/aMsjhhOYQualXxE7TqQt_LEF-STOY2023-StrainPDP-1080x1080.png",
+    "uses": [
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Pineapple Express",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/pineapple-express.png",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "Fatigue",
+      "PTSD",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Pink Certz",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/kKBmQuRVRZ2fHr03kZGH_smol%20web%20Compound%20Genetics%20Pink%20Certz.jpg",
+    "uses": [
+      "Depression"
+    ]
+  },
+  {
+    "name": "Pink Lemonade",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/PINK-LEMONADE-020-fixed.jpg",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Fatigue",
+      "PTSD",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Pink Runtz",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-15.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Purple Octane",
+    "type": "indica",
+    "thc": "",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/NGshbN0Q6C4JyAN2k6JT_seed%20junky%20purple%20octane.jpg",
+    "uses": [
+      "Anxiety",
+      "Chronic pain",
+      "PTSD",
+      "Insomnia",
+      "Stress",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Purple Punch",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/purple-punch-fixed.jpg",
+    "uses": [
+      "Anxiety",
+      "Insomnia",
+      "PTSD",
+      "Arthritis",
+      "Inflammation",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Rainbow Belts",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-3.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Rainbow Runtz",
+    "type": "indica",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-19.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress"
+    ]
+  },
+  {
+    "name": "RS11",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-27.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Runtz",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/runtz-nug-image.jpg",
+    "uses": [
+      "Anxiety",
+      "PTSD",
+      "Depression",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "SFV OG",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/GbuhcPX9TW6tyS0rIOMH_SFVOG.png",
+    "uses": [
+      "Inflammation",
+      "Chronic pain",
+      "PTSD",
+      "Arthritis",
+      "Muscle spasm",
+      "Anxiety"
+    ]
+  },
+  {
+    "name": "Sherb Cream Pie",
+    "type": "hybrid",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-15.png",
+    "uses": [
+      "Stress",
+      "Anxiety",
+      "Chronic pain",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Sherbert",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/sunset-sherbert.jpg",
+    "uses": [
+      "Nausea & appetite",
+      "Arthritis",
+      "Depression",
+      "PTSD",
+      "Anxiety",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Silver Haze",
+    "type": "sativa",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-17.png",
+    "uses": [
+      "Stress",
+      "Depression",
+      "Anxiety",
+      "Nausea & appetite",
+      "Chronic pain",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Singapore Sling",
+    "type": "hybrid",
+    "thc": "~27%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-36.png",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "PTSD",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Skywalker OG",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/long-fluffy-wispy/strain-2.png",
+    "uses": [
+      "Insomnia",
+      "Nausea & appetite",
+      "Chronic pain",
+      "Anxiety",
+      "Inflammation",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "Soda",
+    "type": "hybrid",
+    "thc": "~17%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-25.png",
+    "uses": [
+      "Anxiety",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Sour Diesel",
+    "type": "hybrid",
+    "thc": "~19%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/5SPDG4T4TcSO8PgLgWHO_SourDiesel_AdobeStock_171888473.jpg",
+    "uses": [
+      "Depression",
+      "Stress",
+      "Anxiety",
+      "Fatigue",
+      "Chronic pain",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Sour Tangie",
+    "type": "sativa",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/sour-tangie.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "PTSD",
+      "Stress",
+      "Anxiety",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Spritzer",
+    "type": "hybrid",
+    "thc": "~32%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-13.png",
+    "uses": [
+      "Anxiety",
+      "Arthritis",
+      "PTSD",
+      "Depression",
+      "Stress",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Star Killer",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-12.png",
+    "uses": [
+      "Inflammation",
+      "PTSD",
+      "Insomnia",
+      "Anxiety",
+      "Chronic pain",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Stardawg",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-13.png",
+    "uses": [
+      "Depression",
+      "Nausea & appetite",
+      "Anxiety",
+      "Fatigue",
+      "Inflammation",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Strawberry Banana",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-19.png",
+    "uses": [
+      "Nausea & appetite",
+      "PTSD",
+      "Anxiety",
+      "Inflammation",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Strawberry Cheesecake",
+    "type": "indica",
+    "thc": "~28%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-16.png",
+    "uses": [
+      "Nausea & appetite",
+      "Depression",
+      "Chronic pain",
+      "Anxiety",
+      "Migraine",
+      "Insomnia"
+    ]
+  },
+  {
+    "name": "Strawberry Cough",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://images.leafly.com/flower-images/strawberry-cough.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "PTSD",
+      "Fatigue",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "Strawberry Guava",
+    "type": "hybrid",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-33.png",
+    "uses": [
+      "PTSD",
+      "Anxiety",
+      "Depression",
+      "Stress",
+      "Arthritis"
+    ]
+  },
+  {
+    "name": "Strawberry OG",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-3.png",
+    "uses": [
+      "Depression",
+      "Anxiety",
+      "Nausea & appetite",
+      "Stress",
+      "Fatigue",
+      "PTSD"
+    ]
+  },
+  {
+    "name": "Sundae Driver",
+    "type": "hybrid",
+    "thc": "~22%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/purple/strain-17.png",
+    "uses": [
+      "Anxiety",
+      "PTSD",
+      "Arthritis",
+      "Depression",
+      "Chronic pain",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Super Boof",
+    "type": "hybrid",
+    "thc": "~26%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/eK2NOtifQeuwvKBNqGuV_Screenshot%202024-12-11%20at%209.22.55%20AM.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis",
+      "Fatigue",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Super Cherry",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-1.png",
+    "uses": [
+      "Anxiety",
+      "Stress",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Super Lemon Haze",
+    "type": "sativa",
+    "thc": "~19%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/QRio3lTnO1PsVFx8Sxw1_super-lemon-haze_jman.jpg",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "Stress",
+      "Nausea & appetite",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Super Sour Diesel",
+    "type": "sativa",
+    "thc": "~23%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-22.png",
+    "uses": [
+      "Stress",
+      "Fatigue",
+      "Depression",
+      "Anxiety",
+      "PTSD",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Tangie",
+    "type": "sativa",
+    "thc": "~17%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/8wTMziz0RQaJqNE4juPn_Tangie.png",
+    "uses": [
+      "Fatigue",
+      "Depression",
+      "PTSD",
+      "Anxiety",
+      "Stress",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "The Original Z",
+    "type": "indica",
+    "thc": "~20%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/6VF5EvUTjqZPKFVOQAAY_Zkittlez.jpg",
+    "uses": [
+      "Anxiety",
+      "Nausea & appetite",
+      "PTSD",
+      "Depression",
+      "Stress",
+      "Insomnia"
+    ]
+  },
+  {
+    "name": "Trop Cherry",
+    "type": "hybrid",
+    "thc": "~25%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-10.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Arthritis",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Tropicana Cookies",
+    "type": "sativa",
+    "thc": "~16%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/caPiyJgdTde4JfAslnWd_TropicanaCookies.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Fatigue"
+    ]
+  },
+  {
+    "name": "Watermelon",
+    "type": "indica",
+    "thc": "",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-6.png",
+    "uses": [
+      "Nausea & appetite",
+      "Anxiety",
+      "Insomnia",
+      "Depression",
+      "Muscle spasm",
+      "Inflammation"
+    ]
+  },
+  {
+    "name": "Watermelon Z",
+    "type": "indica",
+    "thc": "~24%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/short-dense-heavy/strain-16.png",
+    "uses": [
+      "Anxiety",
+      "PTSD",
+      "Insomnia",
+      "Depression",
+      "Chronic pain",
+      "Stress"
+    ]
+  },
+  {
+    "name": "Wedding Cake",
+    "type": "hybrid",
+    "thc": "~24%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/m2y50HYRBu0dHY4JSdSx_wedding-cake_jman.jpg",
+    "uses": [
+      "Anxiety",
+      "PTSD",
+      "Nausea & appetite",
+      "Depression",
+      "Stress",
+      "Muscle spasm"
+    ]
+  },
+  {
+    "name": "White Runtz",
+    "type": "hybrid",
+    "thc": "~18%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-9.png",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "Chronic pain",
+      "PTSD",
+      "Stress",
+      "Nausea & appetite"
+    ]
+  },
+  {
+    "name": "White Widow",
+    "type": "hybrid",
+    "thc": "~15%",
+    "imageUrl": "https://images.leafly.com/flower-images/white-widow.png",
+    "uses": [
+      "Stress",
+      "Anxiety",
+      "Chronic pain",
+      "Depression",
+      "Nausea & appetite",
+      "Migraine"
+    ]
+  },
+  {
+    "name": "ZaZa",
+    "type": "hybrid",
+    "thc": "~20%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-11.png",
+    "uses": [
+      "Anxiety",
+      "Nausea & appetite",
+      "PTSD",
+      "Depression",
+      "Stress",
+      "Chronic pain"
+    ]
+  },
+  {
+    "name": "Zerbert",
+    "type": "hybrid",
+    "thc": "~15%",
+    "imageUrl": "https://images.leafly.com/flower-images/defaults/generic/strain-14.png",
+    "uses": [
+      "Anxiety",
+      "Depression"
+    ]
+  },
+  {
+    "name": "Zoap",
+    "type": "hybrid",
+    "thc": "~21%",
+    "imageUrl": "https://leafly-public.imgix.net/strains/photos/QEJXLkqjSWufdzJEi0PR_Deo%20Farms%20Zoap%20Photo%20by%20David%20Downs%20Leafly%202%20smaller.jpg",
+    "uses": [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Stress",
+      "Nausea & appetite",
+      "Muscle spasm"
+    ]
+  }
+]

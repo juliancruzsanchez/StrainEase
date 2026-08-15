@@ -41,6 +41,7 @@ struct StrainDetailView: View {
                     if let sides = profile.sideEffects, !sides.isEmpty {
                         chipSection("Watch for", items: sides)
                     }
+                    TriedNotesView(profile: profile)
                     CommunityVoicesSection(profile: profile, isHydrating: isHydrating)
                     if !profile.inKnowledgeBase && !isHydrating {
                         missing

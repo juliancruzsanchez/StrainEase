@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(AuthSession.self) private var session
+    var onFindAilments: (([String]) -> Void)? = nil
     @State private var showSignOut = false
 
     var body: some View {
@@ -11,6 +12,7 @@ struct AccountView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         header
+                        SavedAilmentsCard(onFind: onFindAilments)
                         SWCard {
                             VStack(alignment: .leading, spacing: 10) {
                                 labeled("Email", session.user?.email ?? "Not on file")
@@ -40,7 +42,7 @@ struct AccountView: View {
                     .accessibilityLabel("Saved strains")
                 }
             }
-            .confirmationDialog("Sign out of StrainWise?", isPresented: $showSignOut, titleVisibility: .visible) {
+            .confirmationDialog("Sign out of StrainEase?", isPresented: $showSignOut, titleVisibility: .visible) {
                 Button("Sign out", role: .destructive) { session.signOut() }
                 Button("Cancel", role: .cancel) {}
             }
@@ -54,7 +56,7 @@ struct AccountView: View {
             Text(session.user?.name ?? "Patient")
                 .font(.system(.largeTitle, design: .serif).weight(.regular))
                 .foregroundStyle(Palette.foreground)
-            Text("Manage your account and the strains you’ve liked.")
+            Text("Manage your ailments, account, and the strains you’ve liked.")
                 .font(.system(size: 15))
                 .foregroundStyle(Palette.mutedForeground)
                 .fixedSize(horizontal: false, vertical: true)
@@ -78,4 +80,5 @@ struct AccountView: View {
     AccountView()
         .environment(AuthSession.previewSignedIn)
         .environment(SavedStrainsStore.preview(["granddaddy-purple"]))
+        .environment(SavedAilmentsStore.preview(["Anxiety"]))
 }

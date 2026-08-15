@@ -8,6 +8,7 @@ extension EnvironmentValues {
 
 protocol StrainServicing {
     func recommend(conditions: [String], potency: Potency, prefs: ResearchPrefs) async throws -> RecommendationResult
+    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs) async throws -> StrainComparison
     func search(name: String) async throws -> StrainProfile?
     func popular() async throws -> [StrainProfile]
 }
@@ -43,6 +44,18 @@ struct LiveStrainAPI: StrainServicing {
         let compacted = prefs.compacted()
         if !compacted.isEmpty { payload["prefs"] = compacted }
         return try await call("recommendStrainsForConditions", data: payload)
+    }
+
+    func compare(
+        strainNames: [String],
+        conditions: [String],
+        prefs: ResearchPrefs
+    ) async throws -> StrainComparison {
+        var payload: [String: Any] = ["strainNames": strainNames]
+        if !conditions.isEmpty { payload["condition"] = conditions }
+        let compacted = prefs.compacted()
+        if !compacted.isEmpty { payload["prefs"] = compacted }
+        return try await call("compareStrains", data: payload)
     }
 
     func search(name: String) async throws -> StrainProfile? {
@@ -122,5 +135,9 @@ struct PreviewStrainAPI: StrainServicing {
 
     func popular() async throws -> [StrainProfile] {
         StrainCatalog.all
+    }
+
+    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs) async throws -> StrainComparison {
+        StrainComparison.sample
     }
 }
