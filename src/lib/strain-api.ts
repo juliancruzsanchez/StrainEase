@@ -20,6 +20,7 @@ export type StrainAnalysis = {
 export type StrainComparison = {
   strains: StrainProfile[];
   analysis: StrainAnalysis;
+  resultId?: string;
 };
 
 export type StrainRecommendation = {
@@ -34,6 +35,7 @@ export type RecommendationResult = {
   summary: string;
   recommendations: StrainRecommendation[];
   strains: StrainProfile[];
+  resultId?: string;
 };
 
 function call<TArgs, TResult>(name: string, args: TArgs): Promise<TResult> {

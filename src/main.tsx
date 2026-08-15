@@ -1,6 +1,5 @@
 import '@vly-ai/integrations';
 import { Toaster } from "@/components/ui/sonner";
-import { RequireAuth } from "@/components/RequireAuth";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
 import { InstrumentationProvider } from "@/instrumentation.tsx";
 import { StrictMode, useEffect, lazy, Suspense } from "react";
@@ -61,14 +60,9 @@ createRoot(document.getElementById("root")!).render(
               path="/auth"
               element={<AuthPage redirectAfterAuth="/dashboard" />}
             />
-            <Route
-              path="/dashboard"
-              element={
-                <RequireAuth>
-                  <Dashboard />
-                </RequireAuth>
-              }
-            />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/find/:rid" element={<Dashboard />} />
+            <Route path="/compare/:rid" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

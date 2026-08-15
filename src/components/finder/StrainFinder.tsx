@@ -1,6 +1,12 @@
 import { recommendStrains as recommendStrainsCall } from "@/lib/strain-api";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cacheKey, cachedRun } from "@/lib/ai-cache";
+import {
+  loadResearch,
+  rememberCloud,
+  rememberLocal,
+} from "@/lib/research-history";
+import { useAuth } from "@/hooks/use-auth";
 import { SaveStrainButton } from "@/components/saved/SaveStrainButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -50,11 +56,14 @@ const RESEARCH_STEPS = [
 
 export function StrainFinder({
   onCompare,
+  restoreId,
 }: {
   onCompare: (names: string[], focus: string[]) => void;
+  restoreId?: string;
 }) {
   type RecommendResult = Awaited<ReturnType<typeof recommendStrainsCall>>;
 
+  const { user } = useAuth();
   const [ailments, setAilments] = useState<string[]>([]);
   const [searched, setSearched] = useState<string[]>([]);
   const [customAilment, setCustomAilment] = useState("");
@@ -65,6 +74,20 @@ export function StrainFinder({
   const [error, setError] = useState<string | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!restoreId) return;
+    let cancelled = false;
+    void loadResearch(restoreId).then((stored) => {
+      if (cancelled || !stored || stored.kind !== "find") return;
+      const args = stored.args as { conditions?: string[] };
+      if (Array.isArray(args.conditions)) setSearched(args.conditions);
+      setResult(stored.result as RecommendResult);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [restoreId]);
 
   // Cycle through research status messages while a search runs.
   useEffect(() => {
@@ -128,6 +151,16 @@ export function StrainFinder({
         () => recommendStrainsCall(args),
       );
       setResult(res);
+      if (res.resultId) {
+        const entry = {
+          id: res.resultId,
+          kind: "find" as const,
+          title: `Best strains for ${targets.join(", ")}`,
+          createdAt: Date.now(),
+        };
+        rememberLocal(entry);
+        if (user) void rememberCloud(user.uid, entry);
+      }
     } catch (err) {
       setError(
         err instanceof Error

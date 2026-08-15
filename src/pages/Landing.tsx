@@ -379,8 +379,8 @@ export default function Landing() {
   const { isAuthenticated } = useAuth();
   const [live, setLive] = useState<FeaturedStrain[] | null>(null);
 
-  const appHref = isAuthenticated ? "/dashboard" : "/auth";
-  const appLabel = isAuthenticated ? "Dashboard" : "Open the app";
+  const appHref = "/dashboard";
+  const appLabel = isAuthenticated ? "Dashboard" : "Find strains";
   const featured = live ?? FALLBACK_STRAINS;
 
   useEffect(() => {
