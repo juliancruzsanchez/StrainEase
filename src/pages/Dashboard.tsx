@@ -24,7 +24,9 @@ import { PatientPrefsFields } from "@/components/finder/PatientPrefsFields";
 import { StrainFinder } from "@/components/finder/StrainFinder";
 import { HistoryPanel } from "@/components/saved/HistoryPanel";
 import { SavedStrainsPanel } from "@/components/saved/SavedStrainsPanel";
+import { ResearchReveal, celebrateResult } from "@/components/finder/ResearchReveal";
 import { cacheKey, cachedRun } from "@/lib/ai-cache";
+import { sourceSummary } from "@/lib/source-summary";
 import {
   loadResearch,
   rememberCloud,
@@ -219,6 +221,7 @@ export default function Dashboard() {
         () => compareStrainsCall(args),
       );
       setResult(comparison);
+      celebrateResult();
       if (comparison.resultId) {
         const entry = {
           id: comparison.resultId,
@@ -729,7 +732,12 @@ export default function Dashboard() {
                   </Button>
                 </div>
 
-                <AnalysisPanel analysis={result.analysis} />
+                <ResearchReveal>
+                  <AnalysisPanel analysis={result.analysis} />
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    {sourceSummary(result.strains)}
+                  </p>
+                </ResearchReveal>
 
                 <div
                   className={cn(

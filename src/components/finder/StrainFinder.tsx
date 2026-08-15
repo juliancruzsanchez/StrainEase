@@ -1,6 +1,8 @@
 import { recommendStrains as recommendStrainsCall } from "@/lib/strain-api";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ResearchReveal, celebrateResult } from "@/components/finder/ResearchReveal";
 import { cacheKey, cachedRun } from "@/lib/ai-cache";
+import { sourceSummary } from "@/lib/source-summary";
 import {
   loadResearch,
   rememberCloud,
@@ -151,6 +153,7 @@ export function StrainFinder({
         () => recommendStrainsCall(args),
       );
       setResult(res);
+      celebrateResult();
       if (res.resultId) {
         const entry = {
           id: res.resultId,
@@ -363,7 +366,7 @@ export function StrainFinder({
           </div>
         ) : result ? (
           <div className="space-y-8">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+            <ResearchReveal className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                   Top picks
@@ -389,18 +392,21 @@ export function StrainFinder({
               >
                 New search
               </Button>
-            </div>
+            </ResearchReveal>
 
-            <div className="rounded-2xl border border-border/70 bg-card px-6 py-6 sm:px-8">
+            <ResearchReveal delay={0.08} className="rounded-2xl border border-border/70 bg-card px-6 py-6 sm:px-8">
               <h2 className="text-xl font-semibold tracking-tight text-balance sm:text-2xl">
                 {result.headline}
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
                 {result.summary}
               </p>
-            </div>
+              <p className="mt-4 text-xs text-muted-foreground">
+                {sourceSummary(result.strains)}
+              </p>
+            </ResearchReveal>
 
-            <div className="space-y-3">
+            <ResearchReveal delay={0.16} className="space-y-3">
               {result.recommendations.map((r, i) => {
                 const profile = profilesByName.get(r.strainName.toLowerCase());
                 return (
@@ -456,9 +462,9 @@ export function StrainFinder({
                   </div>
                 );
               })}
-            </div>
+            </ResearchReveal>
 
-            <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-primary/25 bg-primary/5 px-5 py-4">
+            <ResearchReveal delay={0.24} className="flex flex-wrap items-center gap-3 rounded-2xl border border-primary/25 bg-primary/5 px-5 py-4">
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold tracking-tight">
                   Narrowed it down?
@@ -477,7 +483,7 @@ export function StrainFinder({
                 <GitCompareArrows className="size-4" />
                 Compare the top picks
               </Button>
-            </div>
+            </ResearchReveal>
             {topNames.length < 2 && (
               <p className="-mt-4 text-xs text-muted-foreground">
                 Add at least two recommendations to compare — or use the
