@@ -126,7 +126,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                 <Link to="/">
                   <img
                     src={logo}
-                    alt="StrainWise logo"
+                    alt="StrainEase logo"
                     width={64}
                     height={64}
                     className="mb-4 mt-4 rounded-lg"
@@ -135,7 +135,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
               </div>
               <CardTitle className="text-xl">Almost there</CardTitle>
               <CardDescription>
-                StrainWise saves your strains and notes with Firebase. Add your
+                StrainEase saves your strains and notes with Firebase. Add your
                 Firebase project keys in the Keys/API keys tab to enable
                 accounts:
               </CardDescription>
@@ -184,14 +184,14 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                 <Link to="/">
                   <img
                     src={logo}
-                    alt="StrainWise logo"
+                    alt="StrainEase logo"
                     width={64}
                     height={64}
                     className="mb-4 mt-4 rounded-lg"
                   />
                 </Link>
               </div>
-              <CardTitle className="text-xl tracking-tight">Welcome to StrainWise</CardTitle>
+              <CardTitle className="text-xl tracking-tight">Welcome to StrainEase</CardTitle>
               <CardDescription>
                 Sign in to compare strains, save your favorites, and keep
                 private notes

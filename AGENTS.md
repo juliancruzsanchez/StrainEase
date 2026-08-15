@@ -1,4 +1,4 @@
-# AGENTS.md — StrainWise / strain-finder
+# AGENTS.md — StrainEase / strain-finder
 
 Auto-loaded context for AI coding agents (Claude Code, Cursor, Copilot,
 Codex, Aider, Gemini CLI, Devin, etc.). Read this before doing anything

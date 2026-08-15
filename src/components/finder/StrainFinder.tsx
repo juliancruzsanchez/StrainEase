@@ -8,6 +8,8 @@ import {
 } from "@/lib/research-history";
 import { useAuth } from "@/hooks/use-auth";
 import { useReliefSummary } from "@/hooks/use-relief-summary";
+import { useSavedAilments } from "@/hooks/use-saved-ailments";
+import { ailmentsEqual } from "@/lib/saved-ailments";
 import { pullQuotesFromStrains } from "@/lib/quotes";
 import { SaveStrainButton } from "@/components/saved/SaveStrainButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -41,7 +43,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 type Potency = "" | "mild" | "balanced" | "strong";
 
@@ -71,6 +73,15 @@ export function StrainFinder({
 
   const { user } = useAuth();
   const { hint: reliefHint, summary: reliefSummary } = useReliefSummary();
+  const {
+    ailments: savedAilments,
+    ready: savedReady,
+    busy: savingAilments,
+    save: persistAilments,
+    canSave: canSaveAilments,
+  } = useSavedAilments();
+  const [searchParams] = useSearchParams();
+  const [hydrated, setHydrated] = useState(false);
   const [ailments, setAilments] = useState<string[]>([]);
   const [searched, setSearched] = useState<string[]>([]);
   const [customAilment, setCustomAilment] = useState("");
@@ -81,6 +92,29 @@ export function StrainFinder({
   const [error, setError] = useState<string | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (hydrated) return;
+    const raw = searchParams.get("conditions");
+    if (raw) {
+      const fromUrl = raw
+        .split(",")
+        .map((item) => item.trim())
+        .filter((item) => item !== "");
+      if (fromUrl.length > 0) {
+        setAilments(fromUrl);
+        setHydrated(true);
+        return;
+      }
+    }
+    if (!user) {
+      setHydrated(true);
+      return;
+    }
+    if (!savedReady) return;
+    if (savedAilments.length > 0) setAilments(savedAilments);
+    setHydrated(true);
+  }, [hydrated, searchParams, user, savedReady, savedAilments]);
 
   useEffect(() => {
     if (!restoreId) return;
@@ -287,6 +321,36 @@ export function StrainFinder({
                       </button>
                     </span>
                   ))}
+                </div>
+              )}
+              {canSaveAilments && (
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="cursor-pointer rounded-full"
+                    disabled={
+                      savingAilments ||
+                      ailments.length === 0 ||
+                      ailmentsEqual(ailments, savedAilments)
+                    }
+                    onClick={() => void persistAilments(ailments)}
+                  >
+                    {ailmentsEqual(ailments, savedAilments)
+                      ? "Saved for later"
+                      : "Save these ailments"}
+                  </Button>
+                  {savedAilments.length > 0 &&
+                    !ailmentsEqual(ailments, savedAilments) && (
+                      <button
+                        type="button"
+                        className="text-xs font-medium text-primary hover:text-primary/80"
+                        onClick={() => setAilments(savedAilments)}
+                      >
+                        Use saved
+                      </button>
+                    )}
                 </div>
               )}
             </div>

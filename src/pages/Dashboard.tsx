@@ -24,6 +24,7 @@ import { StrainImage } from "@/components/strain/StrainImage";
 import { PatientPrefsFields } from "@/components/finder/PatientPrefsFields";
 import { StrainFinder } from "@/components/finder/StrainFinder";
 import { HistoryPanel } from "@/components/saved/HistoryPanel";
+import { SavedAilmentsCard } from "@/components/saved/SavedAilmentsCard";
 import { SavedStrainsPanel } from "@/components/saved/SavedStrainsPanel";
 import { cacheKey, cachedRun } from "@/lib/ai-cache";
 import { pullQuotesFromStrains } from "@/lib/quotes";
@@ -311,13 +312,13 @@ export default function Dashboard() {
           <Link to="/" className="flex items-center gap-2.5">
             <img
               src={logo}
-              alt="StrainWise logo"
+              alt="StrainEase logo"
               width={30}
               height={30}
               className="rounded-lg"
             />
             <span className="text-base font-semibold tracking-tight">
-              StrainWise
+              StrainEase
             </span>
           </Link>
           <nav className="hidden items-center gap-1 sm:flex">
@@ -425,7 +426,10 @@ export default function Dashboard() {
 
         {/* ── Saved strains ────────────────────────────────── */}
         <div className={cn(mode !== "saved" && "hidden")}>
-          <SavedStrainsPanel />
+          <div className="space-y-6">
+            <SavedAilmentsCard />
+            <SavedStrainsPanel />
+          </div>
         </div>
 
         {/* ── History (reopen shareable results) ────────────── */}

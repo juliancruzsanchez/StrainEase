@@ -1,9 +1,55 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function ailmentItemValid(item) {
+      return item is string && item.size() > 0 && item.size() < 48;
+    }
+
+    function ailmentsValid(list) {
+      return list is list
+        && list.size() <= 16
+        && (list.size() == 0 || ailmentItemValid(list[0]))
+        && (list.size() < 2 || ailmentItemValid(list[1]))
+        && (list.size() < 3 || ailmentItemValid(list[2]))
+        && (list.size() < 4 || ailmentItemValid(list[3]))
+        && (list.size() < 5 || ailmentItemValid(list[4]))
+        && (list.size() < 6 || ailmentItemValid(list[5]))
+        && (list.size() < 7 || ailmentItemValid(list[6]))
+        && (list.size() < 8 || ailmentItemValid(list[7]))
+        && (list.size() < 9 || ailmentItemValid(list[8]))
+        && (list.size() < 10 || ailmentItemValid(list[9]))
+        && (list.size() < 11 || ailmentItemValid(list[10]))
+        && (list.size() < 12 || ailmentItemValid(list[11]))
+        && (list.size() < 13 || ailmentItemValid(list[12]))
+        && (list.size() < 14 || ailmentItemValid(list[13]))
+        && (list.size() < 15 || ailmentItemValid(list[14]))
+        && (list.size() < 16 || ailmentItemValid(list[15]));
+    }
+
+    // Private patient profile — currently just saved ailments.
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['ailments', 'ailmentsUpdatedAt'])
+        && ailmentsValid(request.resource.data.ailments)
+        && request.resource.data.ailmentsUpdatedAt is number
+        && request.resource.data.ailmentsUpdatedAt > 0;
+      allow update: if isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['ailments', 'ailmentsUpdatedAt'])
+        && ailmentsValid(request.resource.data.ailments)
+        && request.resource.data.ailmentsUpdatedAt is number
+        && request.resource.data.ailmentsUpdatedAt > 0;
+      allow delete: if isOwner(uid);
+    }
+
     // Saved strains + notes are private to each user.
     match /users/{uid}/savedStrains/{slug} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if isOwner(uid);
     }
 
     // Public notes are readable by everyone, written only by signed-in users.
@@ -24,7 +70,7 @@ service cloud.firestore {
     }
 
     match /users/{uid}/reliefLogs/{id} {
-      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow read, delete: if isOwner(uid);
       allow create: if request.auth != null
         && request.auth.uid == uid
         && request.resource.data.strainName is string
@@ -40,9 +86,8 @@ service cloud.firestore {
 
     // Private search history index for signed-in patients.
     match /users/{uid}/history/{id} {
-      allow read, delete: if request.auth != null && request.auth.uid == uid;
-      allow create: if request.auth != null
-        && request.auth.uid == uid
+      allow read, delete: if isOwner(uid);
+      allow create: if isOwner(uid)
         && request.resource.data.keys().hasOnly(['kind', 'title', 'createdAt'])
         && request.resource.data.kind in ['find', 'compare']
         && request.resource.data.title is string

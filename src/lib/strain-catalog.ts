@@ -1,12 +1,14 @@
 import { slugify } from "@/lib/saved-strains";
 import type { StrainProfile, StrainType } from "@/lib/strain-profile";
 import { matchesCondition } from "@/lib/strain-ui";
+import directoryJson from "../data/strain-directory.json";
 
 type CatalogEntry = {
   name: string;
   type: StrainType;
   thc: string;
   uses: string[];
+  imageUrl?: string;
 };
 
 // Curated browse set so Home rails always have 6+ strains per type and
@@ -255,13 +257,15 @@ function toProfile(entry: CatalogEntry): StrainProfile {
     name: entry.name,
     inKnowledgeBase: true,
     type: entry.type,
-    thcRange: entry.thc,
-    medicalUses: entry.uses,
-    imageUrl: PHOTOS[slugify(entry.name)],
+    thcRange: entry.thc || undefined,
+    medicalUses: entry.uses?.length ? entry.uses : undefined,
+    imageUrl: entry.imageUrl || PHOTOS[slugify(entry.name)],
   };
 }
 
-export const CATALOG: StrainProfile[] = ENTRIES.map(toProfile);
+const DIRECTORY = (directoryJson as CatalogEntry[]).filter(
+  (entry) => typeof entry?.name === "string" && entry.name.trim() !== "",
+);
 
 // Leafly popular-list names that don't match our catalog slugs, plus a few
 // current popular strains we don't keep in the browse set. Used so homepage
@@ -344,6 +348,12 @@ export function uniqueProfiles(profiles: StrainProfile[]): StrainProfile[] {
   }
   return [...seen.values()];
 }
+
+// Curated ENTRIES win on medical uses when names collide.
+export const CATALOG: StrainProfile[] = uniqueProfiles([
+  ...ENTRIES.map(toProfile),
+  ...DIRECTORY.map(toProfile),
+]);
 
 /** Fill catalog photos and medical uses when a live profile is missing them. */
 export function applyCatalogPhotos(profiles: StrainProfile[]): StrainProfile[] {

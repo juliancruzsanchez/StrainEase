@@ -419,7 +419,7 @@ export function SavedStrainsPanel() {
         <span className="inline-flex items-center gap-1 font-medium text-primary">
           <Globe className="size-3" /> Public
         </span>{" "}
-        are shared anonymously with other StrainWise patients on the strain's
+        are shared anonymously with other StrainEase patients on the strain's
         page. Notes are not medical advice.
       </p>
     </div>

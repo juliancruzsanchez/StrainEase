@@ -12,10 +12,24 @@ import type { StrainProfile } from "@/lib/strain-profile";
 export function HomeScreen({
   popular,
   recents,
+  savedAilments = [],
 }: {
   popular: StrainProfile[];
   recents: StrainProfile[];
+  savedAilments?: string[];
 }) {
+  const ailments =
+    savedAilments.length > 0
+      ? [
+          ...savedAilments,
+          ...HOME_AILMENTS.filter(
+            (name) =>
+              !savedAilments.some(
+                (saved) => saved.toLowerCase() === name.toLowerCase(),
+              ),
+          ),
+        ]
+      : HOME_AILMENTS;
   const rail = (
     section: Exclude<HomeSection, { kind: "ailment" | "recents" }>,
   ) => (
@@ -41,10 +55,11 @@ export function HomeScreen({
         </p>
       </div>
 
+      {rail({ kind: "directory" })}
       {rail({ kind: "popular" })}
 
       <AilmentCarousel
-        ailments={HOME_AILMENTS}
+        ailments={ailments}
         preview={(name) => previewFor({ kind: "ailment", name }, popular)}
       />
 

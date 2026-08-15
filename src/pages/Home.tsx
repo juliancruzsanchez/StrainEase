@@ -2,11 +2,13 @@ import { AppHeader, AppTabBar } from "@/components/home/AppHeader";
 import { HomeScreen } from "@/components/home/HomeScreen";
 import { usePopularStrains } from "@/hooks/use-popular-strains";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { useSavedAilments } from "@/hooks/use-saved-ailments";
 import { motion } from "framer-motion";
 
 export default function Home() {
   const { popular } = usePopularStrains();
   const recents = useRecentlyViewed();
+  const { ailments: savedAilments } = useSavedAilments();
 
   return (
     <main className="min-h-[100dvh] bg-background pb-24 text-foreground sm:pb-10">
@@ -21,7 +23,11 @@ export default function Home() {
         transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
         className="mx-auto w-full max-w-6xl px-6 py-8 sm:py-10"
       >
-        <HomeScreen popular={popular} recents={recents} />
+        <HomeScreen
+          popular={popular}
+          recents={recents}
+          savedAilments={savedAilments}
+        />
       </motion.div>
       <AppTabBar active="home" />
     </main>

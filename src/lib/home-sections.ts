@@ -15,6 +15,7 @@ export type HomeSection =
   | { kind: "hybrid" }
   | { kind: "indica" }
   | { kind: "popular" }
+  | { kind: "directory" }
   | { kind: "ailment"; name: string };
 
 export const HOME_AILMENTS = CONDITIONS;
@@ -31,6 +32,8 @@ export function sectionTitle(section: HomeSection): string {
       return "Indica";
     case "popular":
       return "Popular strains";
+    case "directory":
+      return "Strain directory";
     case "ailment":
       return section.name;
   }
@@ -56,7 +59,8 @@ export function parseBrowseParams(
     section === "sativa" ||
     section === "hybrid" ||
     section === "indica" ||
-    section === "popular"
+    section === "popular" ||
+    section === "directory"
   ) {
     return { kind: section };
   }
@@ -81,6 +85,8 @@ export function strainsFor(
       case "ailment":
         return matchingAilment(section.name, popular);
       case "popular":
+        return mergeCatalog(popular);
+      case "directory":
         return mergeCatalog(popular);
     }
   })();
