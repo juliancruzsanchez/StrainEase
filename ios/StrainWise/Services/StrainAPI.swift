@@ -7,8 +7,8 @@ extension EnvironmentValues {
 }
 
 protocol StrainServicing {
-    func recommend(conditions: [String], potency: Potency, prefs: ResearchPrefs) async throws -> RecommendationResult
-    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs) async throws -> StrainComparison
+    func recommend(conditions: [String], potency: Potency, prefs: ResearchPrefs, reliefSummary: String?) async throws -> RecommendationResult
+    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs, reliefSummary: String?) async throws -> StrainComparison
     func search(name: String) async throws -> StrainProfile?
     func popular() async throws -> [StrainProfile]
 }
@@ -37,11 +37,12 @@ struct LiveStrainAPI: StrainServicing {
     func recommend(
         conditions: [String],
         potency: Potency,
-        prefs: ResearchPrefs
+        prefs: ResearchPrefs,
+        reliefSummary: String?
     ) async throws -> RecommendationResult {
         var payload: [String: Any] = ["conditions": conditions]
         if potency != .any { payload["potency"] = potency.rawValue }
-        let compacted = prefs.compacted()
+        let compacted = prefs.compacted(reliefSummary: reliefSummary)
         if !compacted.isEmpty { payload["prefs"] = compacted }
         return try await call("recommendStrainsForConditions", data: payload)
     }
@@ -49,11 +50,12 @@ struct LiveStrainAPI: StrainServicing {
     func compare(
         strainNames: [String],
         conditions: [String],
-        prefs: ResearchPrefs
+        prefs: ResearchPrefs,
+        reliefSummary: String?
     ) async throws -> StrainComparison {
         var payload: [String: Any] = ["strainNames": strainNames]
         if !conditions.isEmpty { payload["condition"] = conditions }
-        let compacted = prefs.compacted()
+        let compacted = prefs.compacted(reliefSummary: reliefSummary)
         if !compacted.isEmpty { payload["prefs"] = compacted }
         return try await call("compareStrains", data: payload)
     }
@@ -122,7 +124,7 @@ struct PreviewStrainAPI: StrainServicing {
     var result: RecommendationResult = .sample
     var searchResult: StrainProfile? = .sampleGDP
 
-    func recommend(conditions: [String], potency: Potency, prefs: ResearchPrefs) async throws -> RecommendationResult {
+    func recommend(conditions: [String], potency: Potency, prefs: ResearchPrefs, reliefSummary: String?) async throws -> RecommendationResult {
         result
     }
 
@@ -137,7 +139,7 @@ struct PreviewStrainAPI: StrainServicing {
         StrainCatalog.all
     }
 
-    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs) async throws -> StrainComparison {
+    func compare(strainNames: [String], conditions: [String], prefs: ResearchPrefs, reliefSummary: String?) async throws -> StrainComparison {
         StrainComparison.sample
     }
 }

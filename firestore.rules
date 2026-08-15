@@ -50,5 +50,18 @@ service cloud.firestore {
         && request.resource.data.createdAt is number;
       allow update: if false;
     }
+
+    // Persistent medication list per user — private, list/add/remove only.
+    match /users/{uid}/medications/{id} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['name', 'addedAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() < 80
+        && request.resource.data.addedAt is number
+        && request.resource.data.addedAt > 0;
+      allow update: if false;
+    }
   }
 }

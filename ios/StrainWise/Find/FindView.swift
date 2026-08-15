@@ -2,10 +2,13 @@ import SwiftUI
 
 struct FindView: View {
     @Environment(SavedAilmentsStore.self) private var savedAilments
+    @Environment(SavedMedicationsStore.self) private var savedMedications
+    @Environment(ReliefLogStore.self) private var relief
     @State private var model: FindModel
     @State private var path: [StrainProfile] = []
     @FocusState private var searchFocused: Bool
     @State private var didHydrateAilments = false
+    @State private var didHydrateMedications = false
 
     init(model: FindModel) {
         _model = State(initialValue: model)
@@ -18,6 +21,14 @@ struct FindView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 28) {
                         hero
+                        if let hint = relief.tonightHint {
+                            SWCard {
+                                Text(hint)
+                                    .font(.system(size: 14))
+                                    .foregroundStyle(Palette.foreground)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
                         conditions
                         potency
                         prefs
@@ -252,6 +263,23 @@ struct FindView: View {
                     .foregroundStyle(Palette.mutedForeground)
             }
         }
+        .onAppear { hydrateMedicationsIfNeeded() }
+        .onChange(of: savedMedications.names) { _, _ in
+            hydrateMedicationsIfNeeded()
+        }
+    }
+
+    /// Prefill prefs.medications from the saved profile list once. Subsequent
+    /// edits win — only runs when the field is still empty.
+    private func hydrateMedicationsIfNeeded() {
+        guard !didHydrateMedications else { return }
+        if model.prefs.medications.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+           !savedMedications.names.isEmpty {
+            model.prefs.medications = savedMedications.names.joined(separator: ", ")
+        }
+        if !savedMedications.names.isEmpty || !model.prefs.medications.isEmpty {
+            didHydrateMedications = true
+        }
     }
 
     private var searchBar: some View {
@@ -325,7 +353,7 @@ struct FindView: View {
                 systemImage: "arrow.left.arrow.right",
                 isBusy: model.isComparing
             ) {
-                Task { await model.compareSelected() }
+                Task { await model.compareSelected(reliefSummary: relief.summary.isEmpty ? nil : relief.summary) }
             }
             .disabled(!model.canCompare)
             .opacity(model.canCompare || model.isComparing ? 1 : 0.55)
@@ -421,7 +449,7 @@ struct FindView: View {
             systemImage: "sparkles",
             isBusy: model.isRunning
         ) {
-            Task { await model.find() }
+            Task { await model.find(reliefSummary: relief.summary.isEmpty ? nil : relief.summary) }
         }
         .disabled(!model.canFind)
         .opacity(model.canFind || model.isRunning ? 1 : 0.55)
@@ -499,6 +527,7 @@ struct FindView: View {
                 if let type = profile.type {
                     TypeBadge(type: type)
                 }
+                compareButton(for: rec.strainName)
                 Text(rec.reason)
                     .font(.system(size: 14))
                     .foregroundStyle(Palette.foreground.opacity(0.88))
@@ -509,6 +538,40 @@ struct FindView: View {
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private func compareButton(for name: String) -> some View {
+        let added = model.isInCompare(name)
+        let disabled = !added && model.compareAtCap
+        Button {
+            model.toggleCompare(name)
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: added ? "checkmark" : "arrow.left.arrow.right")
+                    .font(.system(size: 12, weight: .semibold))
+                Text(added ? "Added to compare" : "Add to compare")
+                    .font(.system(size: 13, weight: .semibold))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .foregroundStyle(added ? Palette.primary : Palette.foreground)
+            .background(
+                added ? Palette.primary.opacity(0.12) : Palette.card,
+                in: Capsule()
+            )
+            .overlay(
+                Capsule().strokeBorder(
+                    added ? Palette.primary.opacity(0.4) : Palette.border,
+                    lineWidth: 1
+                )
+            )
+        }
+        .buttonStyle(.plain)
+        .disabled(disabled)
+        .opacity(disabled ? 0.45 : 1)
+        .accessibilityLabel(added ? "Remove from compare selection" : "Add to compare selection")
+        .accessibilityHint(disabled ? "Compare is full (3 strains)" : "Researching only — pick strains here, run the comparison when you're ready")
     }
 
     private func labeled(_ title: String, _ body: String) -> some View {
@@ -557,7 +620,9 @@ struct FindView: View {
         .environment(\.strainAPI, PreviewStrainAPI())
         .environment(SavedStrainsStore.preview())
         .environment(SavedAilmentsStore.preview())
+        .environment(SavedMedicationsStore.preview(["Lexapro"]))
         .environment(RecentlyViewedStore.preview())
+        .environment(ReliefLogStore.preview([.sampleSleep]))
 }
 
 #Preview("Results · Dark") {
@@ -565,6 +630,8 @@ struct FindView: View {
         .environment(\.strainAPI, PreviewStrainAPI())
         .environment(SavedStrainsStore.preview(["granddaddy-purple"]))
         .environment(SavedAilmentsStore.preview(["Insomnia"]))
+        .environment(SavedMedicationsStore.preview(["Lexapro", "Ibuprofen"]))
         .environment(RecentlyViewedStore.preview())
+        .environment(ReliefLogStore.preview())
         .preferredColorScheme(.dark)
 }

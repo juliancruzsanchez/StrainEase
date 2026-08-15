@@ -52,4 +52,5 @@ struct MainTabView: View {
         .environment(SavedStrainsStore.preview(["granddaddy-purple"]))
         .environment(RecentlyViewedStore.preview([.sampleGDP]))
         .environment(SavedAilmentsStore.preview(["Insomnia"]))
+        .environment(ReliefLogStore.preview([.sampleSleep]))
 }

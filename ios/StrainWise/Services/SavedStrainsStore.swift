@@ -198,11 +198,16 @@ final class SavedStrainsStore {
         items.first { $0.slug == slug }?.notes ?? []
     }
 
-    /// Saves the strain if needed, then appends a private note — same shape as web `addNote`.
-    func addNote(to profile: StrainProfile, text: String) async {
+    /// Saves the strain if needed, then appends a note — same shape as web `addNote`.
+    func addNote(
+        to profile: StrainProfile,
+        text: String,
+        isPublic: Bool = false,
+        authorName: String = "A patient"
+    ) async {
         let trimmed = String(text.trimmingCharacters(in: .whitespacesAndNewlines).prefix(1999))
         guard !trimmed.isEmpty, !profile.slug.isEmpty, !isBusy else { return }
-        let note = SavedNote(
+        var note = SavedNote(
             id: "\(Int(Date().timeIntervalSince1970 * 1000))-\(UUID().uuidString.prefix(6).lowercased())",
             text: trimmed,
             isPublic: false,
@@ -214,17 +219,31 @@ final class SavedStrainsStore {
             items.insert(SavedStrainItem(profile: profile, savedAt: note.createdAt, notes: [note]), at: 0)
         }
         errorMessage = nil
-        guard !previewOnly else { return }
+        guard !previewOnly else {
+            if isPublic, let index = items.firstIndex(where: { $0.slug == profile.slug }) {
+                items[index].notes[items[index].notes.count - 1].isPublic = true
+            }
+            return
+        }
 
         isBusy = true
         defer { isBusy = false }
         do {
+            let uid = try currentUID()
             let ref = Firestore.firestore()
                 .collection("users")
-                .document(try currentUID())
+                .document(uid)
                 .collection("savedStrains")
                 .document(profile.slug)
             try await ref.setData(Self.document(for: profile), merge: true)
+            if isPublic {
+                note.publicId = try await publishNote(note, uid: uid, authorName: authorName, strainName: profile.name)
+                note.isPublic = true
+                if let index = items.firstIndex(where: { $0.slug == profile.slug }),
+                   let noteIndex = items[index].notes.firstIndex(where: { $0.id == note.id }) {
+                    items[index].notes[noteIndex] = note
+                }
+            }
             let next = items.first { $0.slug == profile.slug }?.notes ?? [note]
             try await ref.setData(["notes": next.map(Self.noteDocument)], merge: true)
         } catch {
@@ -235,15 +254,66 @@ final class SavedStrainsStore {
         }
     }
 
+    func setNotePublic(
+        slug: String,
+        noteId: String,
+        isPublic: Bool,
+        authorName: String,
+        strainName: String
+    ) async {
+        guard let itemIndex = items.firstIndex(where: { $0.slug == slug }),
+              let noteIndex = items[itemIndex].notes.firstIndex(where: { $0.id == noteId })
+        else { return }
+        let previous = items[itemIndex].notes[noteIndex]
+        errorMessage = nil
+        guard !previewOnly else {
+            items[itemIndex].notes[noteIndex].isPublic = isPublic
+            return
+        }
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            let uid = try currentUID()
+            var note = previous
+            if isPublic && note.publicId == nil {
+                note.publicId = try await publishNote(note, uid: uid, authorName: authorName, strainName: strainName)
+                note.isPublic = true
+            } else if !isPublic, let publicId = note.publicId {
+                try? await Firestore.firestore().collection("publicNotes").document(publicId).delete()
+                note.publicId = nil
+                note.isPublic = false
+            } else {
+                note.isPublic = isPublic
+            }
+            items[itemIndex].notes[noteIndex] = note
+            try await Firestore.firestore()
+                .collection("users")
+                .document(uid)
+                .collection("savedStrains")
+                .document(slug)
+                .setData(
+                    ["notes": items[itemIndex].notes.map(Self.noteDocument)],
+                    merge: true
+                )
+        } catch {
+            items[itemIndex].notes[noteIndex] = previous
+            errorMessage = error.localizedDescription
+        }
+    }
+
     func removeNote(slug: String, noteId: String) async {
         guard let index = items.firstIndex(where: { $0.slug == slug }) else { return }
         let previous = items[index].notes
+        let removed = previous.first { $0.id == noteId }
         items[index].notes.removeAll { $0.id == noteId }
         errorMessage = nil
         guard !previewOnly else { return }
         isBusy = true
         defer { isBusy = false }
         do {
+            if let publicId = removed?.publicId {
+                try? await Firestore.firestore().collection("publicNotes").document(publicId).delete()
+            }
             try await Firestore.firestore()
                 .collection("users")
                 .document(try currentUID())
@@ -257,6 +327,23 @@ final class SavedStrainsStore {
             items[index].notes = previous
             errorMessage = error.localizedDescription
         }
+    }
+
+    private func publishNote(
+        _ note: SavedNote,
+        uid: String,
+        authorName: String,
+        strainName: String
+    ) async throws -> String {
+        let ref = try await Firestore.firestore().collection("publicNotes").addDocument(data: [
+            "strainKey": StrainProfile(name: strainName, inKnowledgeBase: true).slug,
+            "strainName": strainName,
+            "note": String(note.text.prefix(1999)),
+            "authorName": authorName.isEmpty ? "A patient" : authorName,
+            "uid": uid,
+            "createdAt": note.createdAt,
+        ])
+        return ref.documentID
     }
 
     /// Matches the web `saveStrain` payload. Notes are omitted so a re-save cannot wipe them.

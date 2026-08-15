@@ -59,7 +59,7 @@ final class FindModel {
         customAilment = ""
     }
 
-    func find() async {
+    func find(reliefSummary: String? = nil) async {
         guard canFind else { return }
         isRunning = true
         errorMessage = nil
@@ -73,7 +73,8 @@ final class FindModel {
             result = try await api.recommend(
                 conditions: ailments,
                 potency: potency,
-                prefs: prefs
+                prefs: prefs,
+                reliefSummary: reliefSummary
             )
         } catch {
             errorMessage = error.localizedDescription
@@ -110,7 +111,27 @@ final class FindModel {
         compareNames.removeAll { $0.caseInsensitiveCompare(name) == .orderedSame }
     }
 
-    func compareSelected() async {
+    /// Toggle a strain in the compare selection — used by the recommendation
+    /// card's "Add to compare" button so a research session doesn't auto-run
+    /// a comparison.
+    func toggleCompare(_ name: String) {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        if compareNames.contains(where: { $0.caseInsensitiveCompare(trimmed) == .orderedSame }) {
+            removeFromCompare(trimmed)
+        } else if compareNames.count < 3 {
+            compareNames.append(trimmed)
+        }
+    }
+
+    func isInCompare(_ name: String) -> Bool {
+        compareNames.contains { $0.caseInsensitiveCompare(name) == .orderedSame }
+    }
+
+    /// True when adding a new strain would exceed the 3-strain cap.
+    var compareAtCap: Bool { compareNames.count >= 3 }
+
+    func compareSelected(reliefSummary: String? = nil) async {
         guard canCompare else { return }
         isComparing = true
         errorMessage = nil
@@ -119,7 +140,8 @@ final class FindModel {
             comparison = try await api.compare(
                 strainNames: compareNames,
                 conditions: ailments,
-                prefs: prefs
+                prefs: prefs,
+                reliefSummary: reliefSummary
             )
         } catch {
             errorMessage = error.localizedDescription
