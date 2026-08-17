@@ -96,7 +96,7 @@ export function AnalysisPanel({
       <div className="border-b border-border/60 bg-gradient-to-br from-primary/8 to-transparent px-6 py-6 sm:px-8">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary">
           <Sparkles className="size-3.5" />
-          AI comparison · MiniMax-M2.5-highspeed
+          AI comparison · Dr. Kaya
         </div>
         <h2 className="mt-3 text-xl font-semibold tracking-tight text-balance sm:text-2xl">
           {headline}

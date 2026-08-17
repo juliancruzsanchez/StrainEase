@@ -105,10 +105,10 @@ That's the error this section exists to prevent. **Build first, deploy second.**
 
 ### Secrets
 
-`MINIMAX_API_KEY` is a Firebase Secret (not an env var). It is set with:
+`GROQ_API_KEY` is a Firebase Secret (not an env var). It is set with:
 
 ```bash
-firebase functions:secrets:set MINIMAX_API_KEY
+firebase functions:secrets:set GROQ_API_KEY
 ```
 
 Then redeploy. `functions/src/index.ts` declares it via `defineSecret`
@@ -122,10 +122,10 @@ functions/
   src/
     index.ts         # callable function exports (the entry point)
     leafly.ts        # public Leafly scrape, no auth
-    minimax.ts       # MiniMax client + JSON extraction helpers
+    groq.ts          # Groq client + JSON extraction helpers
     types.ts         # shared response types
   lib/               # compiled output, gitignored, DO NOT edit
-  package.json       # main: "lib/index.js", engines.node: "20"
+  package.json       # main: "lib/index.js", engines.node: "22"
   tsconfig.json
 ```
 

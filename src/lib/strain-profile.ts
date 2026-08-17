@@ -1,7 +1,7 @@
 // Shared type for a strain in a comparison. Used by the Firebase compare
 // callable and the comparison UI. Profiles found on Leafly or Weedmaps
 // carry full field data (inKnowledgeBase: true). Anything else is marked
-// inKnowledgeBase: false and MiniMax fills the same fields from public
+// inKnowledgeBase: false and the AI fills the same fields from public
 // sources. communityNotes may include Leafly reviews, Weedmaps tags, and
 // Reddit quotes for the patient's ailments.
 export type StrainType = "indica" | "sativa" | "hybrid";

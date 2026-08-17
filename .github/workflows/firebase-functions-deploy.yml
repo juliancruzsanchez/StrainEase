@@ -12,7 +12,7 @@
 # One-time setup (run once locally so the secret exists before deploy):
 #   firebase login
 #   firebase use YOUR-FIREBASE-PROJECT-ID   # also update .firebaserc
-#   firebase functions:secrets:set MINIMAX_API_KEY
+#   firebase functions:secrets:set GROQ_API_KEY
 
 name: Deploy Firebase Functions
 

@@ -1,9 +1,10 @@
 // StrainEase backend.
 //
 // - popularStrains / searchStrain: public Leafly data lookups (no AI).
-// - compareStrains / recommendStrainsForConditions: MiniMax AI synthesis,
-//   auth-gated — Firebase callable functions automatically attach the
-//   caller's ID token, and we reject calls without `request.auth`.
+// - compareStrains / recommendStrainsForConditions: Groq AI synthesis
+//   (llama-3.3-70b-versatile), auth-gated — Firebase callable functions
+//   automatically attach the caller's ID token, and we reject calls
+//   without `request.auth`.
 import { HttpsError, onCall, type CallableOptions } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import { getStorage } from "firebase-admin/storage";
@@ -11,8 +12,8 @@ import { enrichProfiles, lookupProfile } from "./enrich";
 import { findDoctors as findDoctorsImpl, type DoctorQuery, type DoctorResult } from "./doctors";
 import { fetchPopular, fetchProfiles } from "./leafly";
 import { cachedFetchImage, imageCacheKey } from "./image-cache";
-import { callMiniMax, extractJsonObject } from "./minimax";
-import { redditSeedForPrompt } from "./reddit-seed";
+import { callGroq, extractJsonObject } from "./groq";
+import { matchRedditSeeds } from "./reddit-seed";
 import { clientIp, guestRateLimit, persistResult } from "./results";
 import type {
   RecommendationResult,
@@ -23,10 +24,10 @@ import type {
   StrainRecommendation,
 } from "./types";
 
-export const MINIMAX_API_KEY = defineSecret("MINIMAX_API_KEY");
+export const GROQ_API_KEY = defineSecret("GROQ_API_KEY");
 
 const AI_OPTIONS: CallableOptions = {
-  secrets: [MINIMAX_API_KEY],
+  secrets: [GROQ_API_KEY],
   timeoutSeconds: 120,
   memory: "512MiB",
 };
@@ -52,7 +53,7 @@ export const searchStrain = onCall(
 
 /* ── AI synthesis (auth-gated) ─────────────────────────────────────── */
 
-const COMPARE_SYSTEM_PROMPT = `You are StrainEase, a research assistant built for medical cannabis patients. Patients come to you to choose between strains for symptom relief, so you speak directly to them — not to budtenders or enthusiasts.
+const COMPARE_SYSTEM_PROMPT = `You are Dr. Kaya, an AI cannabis care assistant working inside StrainEase. Patients come to you to choose between strains for symptom relief, so you speak directly to them — not to budtenders or enthusiasts.
 
 Rules:
 - Base every claim on the strain data provided. Never invent numbers, terpenes, effects, or uses.
@@ -85,7 +86,7 @@ Reddit sourcing rules:
 - Prefer threads whose "snippet" matches the patient's condition focus when one is given.
 - If the list has no relevant threads, return an empty array for "redditSources" rather than fabricating any.`;
 
-const RECOMMEND_SYSTEM_PROMPT = `You are StrainEase, a strain-finding assistant built for medical cannabis patients. A patient tells you which symptoms or conditions they are treating, and you recommend the strains most commonly reported to help with those symptoms.
+const RECOMMEND_SYSTEM_PROMPT = `You are Dr. Kaya, StrainEase's AI cannabis care assistant. A patient tells you which symptoms or conditions they are treating, and you recommend the strains most commonly reported to help with those symptoms.
 
 Rules:
 - Base recommendations on the strain data provided (Leafly detail pages plus Weedmaps when available). You may also recommend well-known strains that are NOT in the list, based on your knowledge of how they are commonly described on Leafly, Weedmaps, Reddit, and dispensary menus — but only recommend strains you are confident really exist and are commonly reported for the symptoms.
@@ -137,7 +138,7 @@ Reddit sourcing rules:
  * Each section body is short prose (2-4 sentences), no markdown, no
  * headings inside the body.
  */
-const DESCRIBE_SYSTEM_PROMPT = `You are StrainEase, writing a patient-facing description for a single cannabis strain.
+const DESCRIBE_SYSTEM_PROMPT = `You are Dr. Kaya, StrainEase's AI cannabis care assistant, writing a patient-facing description for a single cannabis strain.
 
 Rules:
 - Base every claim on the strain data provided. Never invent numbers, terpenes, effects, or uses.
@@ -291,11 +292,9 @@ export function compareStrainPayload(s: StrainProfile) {
     type: s.type,
     thcRange: s.thcRange,
     cbdRange: s.cbdRange,
-    lineage: s.lineage,
     terpenes: s.terpenes,
     medicalUses: s.medicalUses,
     effects: s.effects,
-    sideEffects: s.sideEffects,
     description: s.description,
     communityNotes: s.communityNotes,
     noCuratedProfile: !s.inKnowledgeBase,
@@ -308,6 +307,15 @@ function comparePrompt(
   prefs?: ResearchPrefs,
 ): string {
   const payload = strains.map(compareStrainPayload);
+  // Filter the Reddit seed list to threads relevant to this patient's
+  // condition focus + the strains in play. The full pool (~45 entries)
+  // blows past Groq's on-demand TPM budget; 8 vetted, ranked threads
+  // is plenty since the model only picks 1-3 anyway.
+  const redditSeeds = matchRedditSeeds({
+    conditions: conditions ?? [],
+    strainNames: strains.map((s) => s.name),
+    limit: 8,
+  });
   return [
     "Compare the following cannabis strains for a patient deciding which one to try.",
     `Condition focus: ${
@@ -323,7 +331,7 @@ function comparePrompt(
     'Strains marked "noCuratedProfile": true were not found on Leafly or Weedmaps. Research them from your knowledge of how they are commonly described on Leafly, Weedmaps, Reddit, Google, and dispensary menus, and be explicit in the summary when a detail is a commonly-reported figure rather than a verified lab result.',
     "",
     "Vetted Reddit threads (pick from this list only — copy url / subreddit / title verbatim):",
-    JSON.stringify(redditSeedForPrompt(), null, 2),
+    JSON.stringify(redditSeeds, null, 2),
     "",
     "Return only the JSON object described in your instructions.",
   ].join("\n");
@@ -340,14 +348,19 @@ function recommendPrompt(
     type: s.type,
     thcRange: s.thcRange,
     cbdRange: s.cbdRange,
-    lineage: s.lineage,
     terpenes: s.terpenes,
     medicalUses: s.medicalUses,
     effects: s.effects,
-    sideEffects: s.sideEffects,
     description: s.description,
-    communityNotes: s.communityNotes,
   }));
+  // Filter the Reddit seed list to threads relevant to this patient's
+  // symptoms + the popular strains in play. Same TPM-budget reason as
+  // comparePrompt above.
+  const redditSeeds = matchRedditSeeds({
+    conditions,
+    strainNames: strains.map((s) => s.name),
+    limit: 8,
+  });
   return [
     "Recommend the best cannabis strains for a patient treating these symptoms:",
     conditions.join(", "),
@@ -362,7 +375,7 @@ function recommendPrompt(
     "You may also suggest strains not in this list from your general knowledge, as long as you are confident they are real and commonly reported for these symptoms.",
     "",
     "Vetted Reddit threads (pick from this list only — copy url / subreddit / title verbatim):",
-    JSON.stringify(redditSeedForPrompt(), null, 2),
+    JSON.stringify(redditSeeds, null, 2),
     "",
     "Return only the JSON object described in your instructions.",
   ].join("\n");
@@ -512,14 +525,14 @@ export const compareStrains = onCall(
     const language = parseOutputLanguage(data.language);
 
     // Full profiles: Leafly + Weedmaps, Reddit quotes for the ailments,
-    // and MiniMax fill-in when a name is missing from both catalogs.
+    // and Groq fill-in when a name is missing from both catalogs.
     const strains = await enrichProfiles(
       names,
       condition,
-      MINIMAX_API_KEY.value(),
+      GROQ_API_KEY.value(),
     );
 
-    const content = await callMiniMax(MINIMAX_API_KEY.value(), [
+    const content = await callGroq(GROQ_API_KEY.value(), [
       {
         role: "system",
         content: withLanguageClause(COMPARE_SYSTEM_PROMPT, language),
@@ -587,7 +600,7 @@ export const recommendStrainsForConditions = onCall(
     const popular = await fetchPopular();
     const detailed = await fetchProfiles(popular.map((p) => p.name));
 
-    const content = await callMiniMax(MINIMAX_API_KEY.value(), [
+    const content = await callGroq(GROQ_API_KEY.value(), [
       {
         role: "system",
         content: withLanguageClause(RECOMMEND_SYSTEM_PROMPT, language),
@@ -612,7 +625,7 @@ export const recommendStrainsForConditions = onCall(
     const strains = await enrichProfiles(
       names,
       conditions,
-      MINIMAX_API_KEY.value(),
+      GROQ_API_KEY.value(),
     );
 
     const payload: import("./types").RecommendationResult = {
@@ -962,7 +975,7 @@ export const describeStrainForUser = onCall(
     const language = parseOutputLanguage(data.language);
     const safeStrain: StrainProfile = { ...strain, name };
 
-    const content = await callMiniMax(MINIMAX_API_KEY.value(), [
+    const content = await callGroq(GROQ_API_KEY.value(), [
       {
         role: "system",
         content: withLanguageClause(DESCRIBE_SYSTEM_PROMPT, language),

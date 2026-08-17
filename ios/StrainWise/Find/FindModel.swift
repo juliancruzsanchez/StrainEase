@@ -3,7 +3,7 @@ import Foundation
 enum ResearchStep: String, CaseIterable, Equatable {
     case leafly = "Pulling full Leafly & Weedmaps profiles…"
     case reddit = "Collecting Reddit quotes for your symptoms…"
-    case ranking = "Ranking the best strains with MiniMax AI…"
+    case ranking = "Ranking the best strains with Dr. Kaya…"
 }
 
 @Observable

@@ -54,7 +54,7 @@ const STEPS = [
     icon: Pill,
     step: "02",
     title: "Get the best-fit strains",
-    body: "MiniMax AI ranks the strains patients report work best for your symptoms — with reasons, best-for notes, and cautions.",
+    body: "Dr. Kaya, our AI cannabis care assistant, ranks the strains patients report work best for your symptoms, with reasons, best-for notes, and cautions.",
   },
   {
     icon: Brain,

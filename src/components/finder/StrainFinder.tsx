@@ -59,7 +59,7 @@ const QUICK_AILMENTS = ["Insomnia", "Chronic pain", "Anxiety", "Migraine"];
 const RESEARCH_STEPS = [
   "Pulling full Leafly & Weedmaps profiles…",
   "Collecting Reddit quotes for your symptoms…",
-  "Ranking the best strains with MiniMax AI…",
+  "Ranking the best strains with Dr. Kaya…",
 ];
 
 export function StrainFinder({
@@ -632,9 +632,9 @@ export function StrainFinder({
 
             <p className="flex items-center gap-2 text-xs leading-5 text-muted-foreground">
               <Sparkles className="size-3.5 shrink-0 text-primary" />
-              Recommendations generated with MiniMax-M2.5-highspeed from
-              aggregated public sources. Not medical advice — consult your
-              healthcare provider.
+              Recommendations by Dr. Kaya, our AI cannabis care assistant.
+              Synthesized from aggregated public sources. Not medical
+              advice. Consult your healthcare provider.
             </p>
 
             <RedditThreads

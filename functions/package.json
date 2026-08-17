@@ -2,7 +2,7 @@
   "name": "functions",
   "version": "1.0.0",
   "private": true,
-  "description": "StrainEase backend — Leafly strain data + MiniMax AI, exposed as auth-gated callable functions",
+  "description": "StrainEase backend — Leafly strain data + Groq AI (Llama 3.3 70B), exposed as auth-gated callable functions",
   "main": "lib/index.js",
   "engines": {
     "node": "22"

@@ -1,6 +1,6 @@
 // Local cache for AI-generated results (strain recommendations and
 // comparisons). Identical requests within the TTL hit the cache instead of
-// calling MiniMax again, which keeps AI usage down.
+// calling the AI again, which keeps AI usage down.
 const PREFIX = "strainwise:ai:v2:";
 const TTL_MS = 24 * 60 * 60 * 1000;
 

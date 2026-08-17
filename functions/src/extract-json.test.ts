@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { extractJsonObject } from "./minimax";
+import { extractJsonObject } from "./groq";
 
 describe("extractJsonObject", () => {
-  test("strips MiniMax think tags that contain braces", () => {
+  test("strips <think> tags that contain braces", () => {
     const content = [
       "<think>I will return {\"scratch\": true} then the real object.</think>",
       '{"headline":"A calm night pick.","summary":"Go with GDP."}',

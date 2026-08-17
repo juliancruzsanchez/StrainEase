@@ -94,7 +94,7 @@ const QUICK_PICKS: { label: string; condition: string; strains: string[] }[] = [
 const RESEARCH_STEPS = [
   "Pulling full profiles from Leafly & Weedmaps…",
   "Collecting Reddit quotes for your ailments…",
-  "Synthesizing the comparison with MiniMax AI…",
+  "Synthesizing the comparison with Dr. Kaya…",
 ];
 
 type SearchOutcome =
@@ -784,9 +784,9 @@ export default function Dashboard() {
 
                 <p className="flex items-center gap-2 text-xs leading-5 text-muted-foreground">
                   <Sparkles className="size-3.5 shrink-0 text-primary" />
-                  Comparison generated with MiniMax-M2.5-highspeed from live
-                  Leafly data. Not medical advice — consult your healthcare
-                  provider.
+                  Comparison by Dr. Kaya, our AI cannabis care assistant.
+                  Synthesized from live Leafly data. Not medical advice.
+                  Consult your healthcare provider.
                 </p>
               </div>
             ) : (

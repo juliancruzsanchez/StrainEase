@@ -10,7 +10,7 @@ This project uses the following tech stack:
 - Lucide Icons (for icons)
 - Firebase Auth (for authentication)
 - Cloud Firestore (for saved strains, notes, user data)
-- Firebase Cloud Functions v2 (for MiniMax AI calls + Leafly scrape)
+- Firebase Cloud Functions v2 (for Groq AI calls + Leafly scrape; uses Llama 3.3 70B)
 - Framer Motion (for animations)
 - Three js (for 3d models)
 
@@ -38,7 +38,7 @@ VITE_GOOGLE_CLIENT_ID=...
 
 `VITE_GOOGLE_CLIENT_ID` is the Google OAuth Web Client ID. Google sign-in uses Google Identity Services directly (not Firebase's built-in popup/redirect) to avoid Safari's storage-partitioning and IndexedDB-closing bugs. Get the value from the Firebase console → Authentication → Sign-in method → Google → "Web SDK configuration" → "Web client ID".
 
-The backend uses Firebase Secrets for sensitive values. The only one in use today is `MINIMAX_API_KEY`, set with `firebase functions:secrets:set MINIMAX_API_KEY`.
+The backend uses Firebase Secrets for sensitive values. The only one in use today is `GROQ_API_KEY`, set with `firebase functions:secrets:set GROQ_API_KEY`.
 
 
 # Using Authentication (Important!)
@@ -216,8 +216,8 @@ Source lives in `functions/src/`. Four callables are exported:
 
 - `popularStrains()` — public, no auth, returns Leafly's popular list.
 - `searchStrain({ name })` — public, no auth, returns one Leafly profile.
-- `compareStrains({ strainNames, condition })` — auth required, calls MiniMax for synthesis.
-- `recommendStrainsForConditions({ conditions, potency })` — auth required, calls MiniMax for synthesis.
+- `compareStrains({ strainNames, condition })` — auth required, calls Groq (Llama 3.3 70B) for synthesis.
+- `recommendStrainsForConditions({ conditions, potency })` — auth required, calls Groq (Llama 3.3 70B) for synthesis.
 
 To add a new callable:
 
@@ -235,7 +235,7 @@ To add a new callable:
 
 ### Secrets
 
-Sensitive values (e.g. `MINIMAX_API_KEY`) are Firebase Secrets, not env vars. Set with `firebase functions:secrets:set MINIMAX_API_KEY`, then redeploy.
+Sensitive values (e.g. `GROQ_API_KEY`) are Firebase Secrets, not env vars. Set with `firebase functions:secrets:set GROQ_API_KEY`, then redeploy.
 
 ### Functions source layout
 
@@ -244,10 +244,10 @@ functions/
   src/
     index.ts         # callable function exports (the entry point)
     leafly.ts        # public Leafly scrape, no auth
-    minimax.ts       # MiniMax client + JSON extraction helpers
+    groq.ts          # Groq client + JSON extraction helpers
     types.ts         # shared response types
   lib/               # compiled output, gitignored, DO NOT edit
-  package.json       # main: "lib/index.js", engines.node: "20"
+  package.json       # main: "lib/index.js", engines.node: "22"
   tsconfig.json
 ```
 
