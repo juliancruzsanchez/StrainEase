@@ -58,9 +58,9 @@ export function TailoredDescriptionLoading() {
         className="size-4 shrink-0 animate-spin text-primary"
         aria-hidden
       />
-      <p className="flex items-center gap-1.5 text-sm leading-6 text-foreground/80">
+      <p className="flex items-center gap-1.5 text-sm leading-6">
         <Sparkles className="size-3.5 text-primary" aria-hidden />
-        {message}
+        <span className="shimmer-text">{message}</span>
       </p>
     </div>
   );

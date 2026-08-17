@@ -118,7 +118,9 @@ export function AccountMenu({
           </div>
 
           {isLoading ? (
-            <p className="text-xs text-muted-foreground">Loading…</p>
+            <p className="text-xs">
+              <span className="shimmer-text">Loading…</span>
+            </p>
           ) : list.length === 0 ? (
             <p className="text-xs leading-5 text-muted-foreground">
               Add anything you take — prescriptions, OTC, supplements. We&apos;ll

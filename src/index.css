@@ -187,15 +187,17 @@
     transform: none !important;
     transition: none !important;
   }
-  .skeleton-line {
+  .skeleton-line,
+  .shimmer-text {
     animation-duration: 0s !important;
   }
 }
 
-/* Gradient shimmer for placeholder lines. The gradient travels across the
- * row so the placeholders read as actively-loading instead of as a flat
- * gray block. The muted tone stays quiet on both light and dark
- * backgrounds. */
+/* Gradient shimmer for placeholder lines. The gradient sweeps left to right
+ * across each row with a grey track, silver mid-tone, and a brighter white
+ * peak so the placeholders read as actively-loading instead of as a flat
+ * gray block. The white peak is mixed from the theme's --muted, so it stays
+ * brighter than the track on both light and dark backgrounds. */
 @keyframes skeleton-shimmer {
   0% {
     background-position: -120% 0;
@@ -212,12 +214,46 @@
   background-image: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in oklch, var(--muted) 55%, var(--background) 45%) 35%,
-    color-mix(in oklch, var(--muted) 30%, var(--background) 70%) 50%,
-    color-mix(in oklch, var(--muted) 55%, var(--background) 45%) 65%,
+    var(--muted) 20%,
+    color-mix(in oklch, var(--muted), white 30%) 40%,
+    color-mix(in oklch, var(--muted), white 65%) 50%,
+    color-mix(in oklch, var(--muted), white 30%) 60%,
+    var(--muted) 80%,
     transparent 100%
   );
   background-size: 220% 100%;
   background-repeat: no-repeat;
-  animation: skeleton-shimmer 1.7s ease-in-out infinite;
+  animation: skeleton-shimmer 1.5s linear infinite;
+}
+
+/* Shimmer for in-line loading copy — the rotating "Loading strain data…" /
+ * "Cross referencing your symptoms…" lines in the strain detail card. The
+ * gradient sweeps left to right across the text with a grey track, silver
+ * mid-tone, and white peak so the message reads as actively-loading
+ * without losing legibility. */
+@keyframes shimmer-text-sweep {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shimmer-text {
+  display: inline-block;
+  background-image: linear-gradient(
+    90deg,
+    var(--muted-foreground) 0%,
+    color-mix(in oklch, var(--muted-foreground), white 25%) 35%,
+    color-mix(in oklch, var(--muted-foreground), white 65%) 50%,
+    color-mix(in oklch, var(--muted-foreground), white 25%) 65%,
+    var(--muted-foreground) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-text-sweep 1.6s linear infinite;
 }
