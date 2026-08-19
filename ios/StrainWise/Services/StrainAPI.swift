@@ -33,6 +33,20 @@ protocol StrainServicing {
         reliefHistory: String,
         language: String
     ) async throws -> StrainDescription?
+
+    /// Expand one of the three tailored-description sections (e.g. the
+    /// "What it might do for you" block) with a deeper take on the
+    /// strain + the user's saved ailments / medications / relief log.
+    /// Mirrors the ✨ Ask Maya button on the web strain page.
+    func elaborate(
+        strain: StrainProfile,
+        sectionHeading: String,
+        sectionBody: String,
+        ailments: [String],
+        medications: [String],
+        reliefHistory: String,
+        language: String
+    ) async throws -> String
 }
 
 /// Default language for AI-written responses. The backend pins output
@@ -180,6 +194,45 @@ struct LiveStrainAPI: StrainServicing {
         return try await callOptional("describeStrainForUser", data: payload)
     }
 
+    func elaborate(
+        strain: StrainProfile,
+        sectionHeading: String,
+        sectionBody: String,
+        ailments: [String],
+        medications: [String],
+        reliefHistory: String,
+        language: String
+    ) async throws -> String {
+        let trimmedName = strain.name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else {
+            throw StrainAPIError.message("Strain name is required.")
+        }
+        let trimmedHeading = sectionHeading.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedHeading.isEmpty else {
+            throw StrainAPIError.message("Section heading is required.")
+        }
+        let cleanedAilments = ailments
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .prefix(16)
+        let cleanedMedications = medications
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .prefix(24)
+        let cleanedRelief = reliefHistory.trimmingCharacters(in: .whitespacesAndNewlines)
+        let payload: [String: Any] = [
+            "strain": strainDictionary(strain),
+            "sectionHeading": String(trimmedHeading.prefix(80)),
+            "sectionBody": String(sectionBody.trimmingCharacters(in: .whitespacesAndNewlines).prefix(2000)),
+            "ailments": Array(cleanedAilments),
+            "medications": Array(cleanedMedications),
+            "language": language,
+            "reliefHistory": String(cleanedRelief.prefix(800)),
+        ]
+        let result = try await call<ElaboratedSection>(name: "elaborateSection", data: payload)
+        return result.elaboration
+    }
+
     /// Encode the strain into a plain `[String: Any]` so the backend
     /// gets the same shape it gets from the web client. Mirrors
     /// `StrainProfile` only for the fields `describeStrainPayload` on
@@ -313,6 +366,18 @@ struct PreviewStrainAPI: StrainServicing {
         StrainDescription.sample
     }
 
+    func elaborate(
+        strain: StrainProfile,
+        sectionHeading: String,
+        sectionBody: String,
+        ailments: [String],
+        medications: [String],
+        reliefHistory: String,
+        language: String
+    ) async throws -> String {
+        "Maya's take on \(sectionHeading): \(strain.name) shines for the symptoms you flagged — start low, give it time to settle, and check in with how you feel before layering more on top."
+    }
+
 }
 
 /// Preview helper that never resolves so strain-detail placeholders stay visible.
@@ -354,5 +419,18 @@ struct DelayedPreviewAPI: StrainServicing {
     ) async throws -> StrainDescription? {
         try await Task.sleep(for: .seconds(60))
         return StrainDescription.sample
+    }
+
+    func elaborate(
+        strain: StrainProfile,
+        sectionHeading: String,
+        sectionBody: String,
+        ailments: [String],
+        medications: [String],
+        reliefHistory: String,
+        language: String
+    ) async throws -> String {
+        try await Task.sleep(for: .seconds(60))
+        return "Maya's take never resolves in this preview — but the production path returns a 2-4 paragraph expansion tailored to the strain and the user's saved ailments."
     }
 }
