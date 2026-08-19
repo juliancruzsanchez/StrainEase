@@ -373,6 +373,14 @@ struct StrainDescriptionSection: Codable, Hashable, Sendable {
     var body: String
 }
 
+/// Result shape for the `elaborateSection` callable — a single
+/// short prose expansion of one of the three tailored-description
+/// sections, written for this strain and the caller's saved
+/// ailments / medications / relief-log history.
+struct ElaboratedSection: Codable, Hashable, Sendable {
+    var elaboration: String
+}
+
 /// Three-section, patient-tailored description for a single strain.
 /// Always exactly three sections:
 ///   - "Overview"

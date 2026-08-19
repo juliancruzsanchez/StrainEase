@@ -31,10 +31,6 @@ struct StrainDetailView: View {
     private var pending: Set<StrainHydrationSection> {
         isHydrating ? profile.pendingHydrationSections : []
     }
-    /// `true` only when the user has saved ailments AND the AI
-    /// tailored-description endpoint should be invoked. Without saved
-    /// ailments the static `profile.description` is the better surface.
-    private var shouldFetchTailored: Bool { !ailments.ailments.isEmpty }
 
     var body: some View {
         ZStack {
@@ -133,7 +129,7 @@ struct StrainDetailView: View {
     private var descriptionSection: some View {
         if let tailored = tailoredDescription {
             tailoredDescriptionSection(tailored)
-        } else if shouldFetchTailored, isLoadingTailoredDescription {
+        } else if isLoadingTailoredDescription {
             tailoredDescriptionLoading
         } else if let description = profile.description, !description.isEmpty {
             SWCard {
@@ -194,60 +190,26 @@ struct StrainDetailView: View {
             .foregroundStyle(Palette.primary)
 
             ForEach(description.sections, id: \.heading) { section in
-                SWCard {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(section.heading)
-                            .font(.system(size: 11, weight: .semibold))
-                            .tracking(1.0)
-                            .textCase(.uppercase)
-                            .foregroundStyle(Palette.mutedForeground)
-                        tailoredDescriptionBody(section.body)
-                    }
-                }
+                TailoredDescriptionSection(
+                    section: section,
+                    profile: profile,
+                    ailments: ailments.ailments,
+                    medications: medications.names,
+                    reliefHistory: relief.summary
+                )
             }
         }
         .accessibilityIdentifier("strain.tailored-description")
     }
 
-    /// Render the section body as a stack of short paragraphs so the
-    /// description reads with breathing room on a phone instead of as a
-    /// wall of text. The model separates paragraphs with blank lines
-    /// ("\n\n"); we trim each chunk and drop empties so a stray blank
-    /// doesn't add a phantom paragraph.
-    @ViewBuilder
-    private func tailoredDescriptionBody(_ body: String) -> some View {
-        let paragraphs = body
-            .components(separatedBy: "\n\n")
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-        if paragraphs.isEmpty {
-            // Model returned no blank lines. Fall back to the raw body
-            // so we never render an empty section silently.
-            Text(body)
-                .font(.system(size: 15))
-                .foregroundStyle(Palette.foreground)
-                .fixedSize(horizontal: false, vertical: true)
-        } else {
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(Array(paragraphs.enumerated()), id: \.offset) { _, paragraph in
-                    Text(paragraph)
-                        .font(.system(size: 15))
-                        .foregroundStyle(Palette.foreground)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-        }
-    }
-
-    /// Fetch the patient-tailored description. Skipped entirely when
-    /// the user has no saved ailments. Aborts on input change so we
-    /// never paint stale text over a fresh strain.
+    /// Fetch the patient-tailored description. We always call the
+    /// endpoint on appear — the backend returns a general three-section
+    /// write-up when the user has no saved ailments, so this drives the
+    /// same three-card surface for every reader, not just patients with
+    /// stored ailments. The local feature stub short-circuits with
+    /// `nil` when ailments are empty (so we don't show a skeleton) but
+    /// the live call always runs.
     private func fetchTailoredDescription() async {
-        guard shouldFetchTailored else {
-            stopTailoredLoadingRotation()
-            tailoredDescription = nil
-            return
-        }
         isLoadingTailoredDescription = true
         startTailoredLoadingRotation()
         defer {
@@ -405,10 +367,13 @@ struct StrainDetailView: View {
                         Capsule()
                             .fill(
                                 LinearGradient(
+                                    // sky-300 → sky-500 → indigo-900 to match
+                                    // the web Strain.tsx day/night gradient
+                                    // (Tailwind v4 oklch → sRGB).
                                     colors: [
-                                        Color(red: 0.49, green: 0.76, blue: 0.92),
-                                        Palette.primary,
-                                        Color(red: 0.12, green: 0.14, blue: 0.32),
+                                        Color(red: 0.49, green: 0.83, blue: 0.99),
+                                        Color(red: 0.05, green: 0.65, blue: 0.91),
+                                        Color(red: 0.19, green: 0.18, blue: 0.51),
                                     ],
                                     startPoint: .leading,
                                     endPoint: .trailing
@@ -758,6 +723,169 @@ private struct LeaflyRatingCard: View {
             return "Leafly rating \(rating) from \(count.formatted()) reviews"
         }
         return "Leafly rating \(rating)"
+    }
+}
+
+/// One card per section of the tailored description. The card shows
+/// the section's heading + body, plus an ✨ Ask Maya button on the
+/// right that calls `elaborateSection` and renders the deeper take
+/// below the original body. Mirrors the web `AskMayaButton`.
+private struct TailoredDescriptionSection: View {
+    @Environment(\.strainAPI) private var api
+    let section: StrainDescriptionSection
+    let profile: StrainProfile
+    let ailments: [String]
+    let medications: [String]
+    let reliefHistory: String
+
+    @State private var isOpen: Bool = false
+    @State private var isLoading: Bool = false
+    @State private var elaboration: String?
+    @State private var errorMessage: String?
+
+    var body: some View {
+        SWCard {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .top, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(section.heading)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Palette.foreground)
+                    }
+                    Spacer(minLength: 8)
+                    askMayaButton
+                }
+                tailoredDescriptionBody(section.body)
+                if isOpen {
+                    elaborationBlock
+                }
+            }
+        }
+        .accessibilityIdentifier("strain.tailored-description.\(slugify(section.heading))")
+    }
+
+    @ViewBuilder
+    private var elaborationBlock: some View {
+        if let elaboration {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 6) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 10, weight: .semibold))
+                    Text("Maya's take")
+                        .font(.system(size: 10, weight: .semibold))
+                        .tracking(1.0)
+                        .textCase(.uppercase)
+                }
+                .foregroundStyle(Palette.primary)
+
+                Text(elaboration)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Palette.foreground)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(10)
+            .background(
+                Palette.accent.opacity(0.45),
+                in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+            )
+        } else if let errorMessage {
+            Text(errorMessage)
+                .font(.system(size: 12))
+                .foregroundStyle(Palette.mutedForeground)
+        }
+    }
+
+    private var askMayaButton: some View {
+        Button {
+            Task { await toggle() }
+        } label: {
+            HStack(spacing: 4) {
+                if isLoading {
+                    ProgressView()
+                        .controlSize(.mini)
+                        .tint(Palette.primary)
+                } else {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 10, weight: .semibold))
+                }
+                Text(isLoading ? "Asking Maya…" : (isOpen ? "Hide" : "Ask Maya"))
+                    .font(.system(size: 11, weight: .semibold))
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .foregroundStyle(Palette.primary)
+            .background(Palette.accent.opacity(0.85), in: Capsule())
+            .overlay(
+                Capsule().strokeBorder(Palette.primary.opacity(0.35), lineWidth: 0.5)
+            )
+        }
+        .buttonStyle(.plain)
+        .disabled(isLoading)
+        .accessibilityLabel(
+            isOpen
+                ? "Hide \(section.heading) elaboration"
+                : "Ask Maya about \(section.heading)"
+        )
+    }
+
+    private func toggle() async {
+        if isOpen {
+            withAnimation(.snappy(duration: 0.22)) { isOpen = false }
+            return
+        }
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+        do {
+            let text = try await api.elaborate(
+                strain: profile,
+                sectionHeading: section.heading,
+                sectionBody: section.body,
+                ailments: ailments,
+                medications: medications,
+                reliefHistory: reliefHistory,
+                language: StrainAILanguage.preferred
+            )
+            elaboration = text
+            withAnimation(.snappy(duration: 0.22)) { isOpen = true }
+        } catch {
+            errorMessage = "Maya couldn't expand on this right now."
+            withAnimation(.snappy(duration: 0.22)) { isOpen = true }
+        }
+    }
+
+    private func slugify(_ value: String) -> String {
+        value.lowercased().replacingOccurrences(of: " ", with: "-")
+    }
+
+    /// Render the section body as a stack of short paragraphs so the
+    /// description reads with breathing room on a phone instead of as a
+    /// wall of text. The model separates paragraphs with blank lines
+    /// ("\n\n"); we trim each chunk and drop empties so a stray blank
+    /// doesn't add a phantom paragraph.
+    @ViewBuilder
+    private func tailoredDescriptionBody(_ body: String) -> some View {
+        let paragraphs = body
+            .components(separatedBy: "\n\n")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        if paragraphs.isEmpty {
+            // Model returned no blank lines. Fall back to the raw body
+            // so we never render an empty section silently.
+            Text(body)
+                .font(.system(size: 15))
+                .foregroundStyle(Palette.foreground)
+                .fixedSize(horizontal: false, vertical: true)
+        } else {
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Array(paragraphs.enumerated()), id: \.offset) { _, paragraph in
+                    Text(paragraph)
+                        .font(.system(size: 15))
+                        .foregroundStyle(Palette.foreground)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
     }
 }
 
